@@ -10,6 +10,10 @@ import (
 	"vipgoclient/com/vmware/i18n/client/conf"
 )
 
+type Translator struct{
+	locale string
+}
+
 func GetTranslationByComponent(local, component string) *bean.QueryTranslationByCompRespEvent {
 
 	config := consulapi.DefaultConfig()

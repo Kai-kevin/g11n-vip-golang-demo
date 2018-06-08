@@ -5,6 +5,7 @@ import (
 	"strings"
 	"sync"
 	"vipgoclient/com/vmware/i18n/client/conf"
+	"vipgoclient/com/vmware/i18n/client/bean/i18n"
 )
 
 type CacheDTO struct {
@@ -16,6 +17,9 @@ type CacheDTO struct {
 
 //缓存MAP
 var cachedMap = make(map[CacheDTO]map[string]string)
+
+//缓存format相关信息
+var cacheFormatMap = make(map[string]*bean.QueryFormattingPatternByLocaleRespData)
 
 //读写锁
 var mux sync.RWMutex
@@ -72,6 +76,11 @@ func LoadCached() {
 
 			//获取缓存的信息
 			cachedMap[cacheDTO] = respEvent.Data.Messages
+
+			//获取Format缓存信息
+			patternData := GetFormattingPatternsByLocal(locale)
+			cacheFormatMap[locale] = &
+				patternData.Data
 		}
 	}
 }
@@ -79,6 +88,11 @@ func LoadCached() {
 //获取缓存Map
 func GetCacheMap() *map[CacheDTO]map[string]string {
 	return &cachedMap
+}
+
+//获取当前缓存FormatMap
+func GetFormatMap() *map[string]*bean.QueryFormattingPatternByLocaleRespData{
+	return &cacheFormatMap
 }
 
 //查询缓存信息

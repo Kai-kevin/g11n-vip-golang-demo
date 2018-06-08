@@ -82,8 +82,8 @@ type DateFormat struct {
 
 type MonthsFormat struct {
 	Narrow      []string `json:"narrow"`
-	Abbreviated []string `json:"narrow"`
-	Wide        []string `json:"narrow"`
+	Abbreviated []string `json:"abbreviated"`
+	Wide        []string `json:"wide"`
 }
 
 type Eras struct {
