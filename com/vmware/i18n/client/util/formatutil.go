@@ -62,6 +62,8 @@ func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err
 		}
 	}
 
+	numberFormat.NegativePrefix = "-"
+
 	//percentPattern := cacheFormat.Messages.NumberFormats.PercentFormats
 	//
 	//if strings.Index(percentPattern, "%") != -1 {
@@ -90,8 +92,14 @@ func FormatNumberDefault(obj interface{},local string) (str string,err error){
 
 //获取分数格式，需要知道地区信息
 func FormatPercent(format *format.NumberFormat,number float64) string{
-	//TODO 获取分数的format
-	return ""
+		format.Multiplier = 100
+
+		format.Percent = "%"
+		format.PositiveSuffix = "%"
+		format.NegativeSuffix = "%"
+
+
+	return FormatNumber(format,number)
 }
 
 func FormatNumber(format *format.NumberFormat,number float64) string{
