@@ -60,14 +60,14 @@ type Abbreviated struct {
 }
 
 type DaysFormat struct {
-	narrow      []string    `json:"narrow"`
+	Narrow      []string    `json:"narrow"`
 	Abbreviated Abbreviated `json:"abbreviated"`
 	Wide        []string    `json:"wide"`
 	Short       []string    `json:"short"`
 }
 
 type DaysStandalone struct {
-	narrow      []string    `json:"narrow"`
+	Narrow      []string    `json:"narrow"`
 	Abbreviated []string `json:"abbreviated"`
 	Wide        []string    `json:"wide"`
 	Short       []string    `json:"short"`

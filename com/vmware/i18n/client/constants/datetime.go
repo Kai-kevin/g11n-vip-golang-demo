@@ -1,0 +1,20 @@
+package constants
+
+//日期时间格式常量
+const (
+	SHORTDATE = iota
+	MEDIUMDATE
+	FULLDATE
+	LONGDATE
+	SHORTTIME
+	MEDIUMTIME
+	LONGTIME
+	FULLTIME
+	SHORT
+	MEDIUM
+	LONG
+	FULL
+)
+
+
+

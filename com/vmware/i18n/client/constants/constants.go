@@ -8,25 +8,12 @@ const (
 	URL_GET_FORMATTING_PATTERN_BY_LOCALE = "http://localhost:18080/i18n/api/v2/formatting/patterns/locales/{locale}"
 )
 
-//日期时间格式常量
-const (
-	SHORTDATE  = "shortDate"
-	MEDIUMDATE = "mediumDate"
-	FULLDATE   = "fullDate"
-	SHORTTIME  = "shortTime"
-	MEDIUMTIME = "mediumTime"
-	LONGTIME   = "longTime"
-	FULLTIME   = "fullTime"
-	SHORT      = "short"
-	MEDIUM     = "medium"
-	LONG       = "long"
-	FULL       = "full"
-)
-
 const (
 	LOCAL_ZH_CN = "zh_CN"
 	LOCAL_DE = "de"
 	LOCAL_ES = "es"
 	LOCAL_FR = "fr"
 )
+
+
 

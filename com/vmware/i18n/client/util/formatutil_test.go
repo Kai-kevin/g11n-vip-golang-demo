@@ -29,4 +29,7 @@ func TestFormatPercent(t *testing.T) {
 	i  := FormatPercent(&locale,1212.1211)
 
 	fmt.Println(i)
+
 }
+
+
