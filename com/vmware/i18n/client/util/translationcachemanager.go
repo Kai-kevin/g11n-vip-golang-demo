@@ -76,12 +76,12 @@ func LoadCached() {
 
 			//获取缓存的信息
 			cachedMap[cacheDTO] = respEvent.Data.Messages
-
-			//获取Format缓存信息
-			patternData := GetFormattingPatternsByLocal(locale)
-			cacheFormatMap[locale] = &
-				patternData.Data
 		}
+
+		//获取Format缓存信息
+		patternData := GetFormattingPatternsByLocal(locale)
+		cacheFormatMap[locale] = &
+			patternData.Data
 	}
 }
 
@@ -142,7 +142,6 @@ func (manager *translationCacheManager) AddCacheByComponent(dto CacheDTO, object
 //删除缓存
 func (*translationCacheManager) RemoveCacheByComponent(dto CacheDTO) bool {
 	mux.Lock()
-
 	defer mux.Unlock()
 
 	//删除参数
@@ -153,5 +152,15 @@ func (*translationCacheManager) RemoveCacheByComponent(dto CacheDTO) bool {
 
 //更新缓存
 func (*translationCacheManager) UpdateCacheByComponent(dto CacheDTO, object interface{}) bool {
-	return false
+	mux.Lock()
+	defer mux.Unlock()
+
+	translationCache := cachedMap[dto]
+	translationRets := object.(map[string]string)
+
+	for k, v := range translationRets {
+		translationCache[k] = v
+	}
+
+	return true
 }
