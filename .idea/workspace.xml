@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7b4c5ded-2d9d-425d-acd4-a48c8271be7e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com/vmware/i18n/client/bean/i18n/queryformattingpatternbylocaleresp.go" beforeDir="false" afterPath="$PROJECT_DIR$/com/vmware/i18n/client/bean/i18n/queryformattingpatternbylocaleresp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com/vmware/i18n/client/constants/constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/com/vmware/i18n/client/constants/constants.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com/vmware/i18n/client/sample/sample.go" beforeDir="false" afterPath="$PROJECT_DIR$/com/vmware/i18n/client/sample/sample.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com/vmware/i18n/client/util/formatutil_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/com/vmware/i18n/client/util/formatutil_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil.go" beforeDir="false" afterPath="$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,46 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="translateutil.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/translateutil.go">
+      <file leaf-file-name="vipconfig.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/resource/conf/vipconfig.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="96" selection-start-line="96" selection-end-line="96" />
-              <folding>
-                <element signature="e#14#207#0" expanded="true" />
-                <element signature="n#!!block;n#GetTranslationByComponent#0" />
-                <element signature="n#!!block;n#GetTranslationByKey#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="formatutil_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/formatutil_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-              <folding>
-                <element signature="e#14#42#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/sample/sample.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="constants.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/constants/constants.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state>
+              <caret line="9" column="36" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -89,26 +52,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="formatutil.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/formatutil.go">
+      <file leaf-file-name="dateformatutil.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
-              <folding>
-                <element signature="e#14#116#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="159">
+              <caret line="742" column="41" lean-forward="true" selection-start-line="742" selection-start-column="41" selection-end-line="742" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dateformatutil.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil.go">
+      <file leaf-file-name="translationcachemanager.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/translationcachemanager.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
-              <folding>
-                <element signature="e#14#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1740">
+              <caret line="93" column="5" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -116,29 +73,44 @@
       <file leaf-file-name="dateformatutil_test.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="12" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="12" />
-              <folding>
-                <element signature="e#14#43#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="340">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="time.go" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Go/src/time/time.go">
+      <file leaf-file-name="format.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/time/format.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="302" column="5" selection-start-line="302" selection-start-column="5" selection-end-line="302" selection-end-column="5" />
+            <state relative-caret-position="683">
+              <caret line="378" column="1" lean-forward="true" selection-start-line="350" selection-end-line="378" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="queryformattingpatternbylocaleresp.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/bean/i18n/queryformattingpatternbylocaleresp.go">
+      <file leaf-file-name="print.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/fmt/print.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="111" column="4" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="4" />
+            <state relative-caret-position="509">
+              <caret line="628" column="46" selection-start-line="628" selection-start-column="40" selection-end-line="628" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="zoneinfo.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/time/zoneinfo.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="310" column="30" selection-start-line="310" selection-start-column="29" selection-end-line="310" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="zoneinfo_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/time/zoneinfo_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="349">
+              <caret line="100" column="46" selection-start-line="100" selection-start-column="46" selection-end-line="100" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -159,6 +131,9 @@
       <find>local</find>
       <find>main</find>
       <find>abbreviated</find>
+      <find>String</find>
+      <find>String()</find>
+      <find>+</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\kai.ruan\go\src\github.com\hashicorp\consul</dir>
@@ -220,7 +195,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -344,10 +318,33 @@
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="conf" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="vipgoclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="vipgoclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go SDK 1.10.1" type="20ee2d1f:SyntheticLibraryElementNode" />
+            </path>
+            <path>
+              <item name="vipgoclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go SDK 1.10.1" type="20ee2d1f:SyntheticLibraryElementNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vipgoclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Go SDK 1.10.1" type="20ee2d1f:SyntheticLibraryElementNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="time" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -448,57 +445,58 @@
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestFormatPercent_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.08 at 15h 51m 45s.xml">
-      <configuration name="TestFormatPercent in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestFormatPercent_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.08 at 15h 55m 42s.xml">
-      <configuration name="TestFormatPercent in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestFormatPercent_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.08 at 17h 05m 27s.xml">
-      <configuration name="TestFormatPercent in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestFormatPercent_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.08 at 17h 06m 58s.xml">
-      <configuration name="TestFormatPercent in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestFormatPercent_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.11 at 13h 09m 06s.xml">
-      <configuration name="TestFormatPercent in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="formatutil_test_go - 2018.06.11 at 13h 11m 05s.xml">
+    <history-entry file="formatutil_test_go - 2018.06.11 at 18h 04m 05s.xml">
       <configuration name="formatutil_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="formatutil_test_go - 2018.06.11 at 13h 11m 09s.xml">
-      <configuration name="formatutil_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.11 at 18h 04m 10s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="formatutil_test_go - 2018.06.11 at 13h 13m 15s.xml">
-      <configuration name="formatutil_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.11 at 18h 05m 02s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="formatutil_test_go - 2018.06.11 at 13h 13m 18s.xml">
-      <configuration name="formatutil_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.12 at 08h 55m 12s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.11 at 17h 07m 01s.xml">
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.12 at 08h 56m 22s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.12 at 08h 58m 12s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.12 at 08h 59m 29s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.12 at 09h 37m 11s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.12 at 09h 37m 52s.xml">
+      <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestFormatDateTime_in_vipgoclient_com_vmware_i18n_client_util - 2018.06.12 at 09h 39m 23s.xml">
       <configuration name="TestFormatDateTime in vipgoclient/com/vmware/i18n/client/util" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.20628998" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20842217" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50364584" side_tool="true" weight="0.3299595" />
       <window_info anchor="right" id="Database" order="1" sideWeight="0.49921754" weight="0.32995737" />
+      <window_info anchor="bottom" id="Find" order="5" weight="0.32953367" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49635416" visible="true" weight="0.37823835" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49635416" visible="true" weight="0.37823835" />
       <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="2" />
-      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.496875" weight="0.35243243" />
+      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.496875" weight="0.3523316" />
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.32953367" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="right" id="Coverage" order="0" sideWeight="0.5007825" side_tool="true" visible="true" weight="0.15138593" />
     </layout>
@@ -515,7 +513,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add formatutil" />
     <MESSAGE value="add some format functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="add some format functions" />
+    <MESSAGE value="add some dateformat functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="add some dateformat functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -526,7 +525,7 @@
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="30" />
+      <option name="time" value="34" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="GoApplicationRunConfiguration">
@@ -538,20 +537,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Go/src/encoding/json/encode.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2860">
-          <caret line="158" column="5" selection-start-line="158" selection-start-column="5" selection-end-line="158" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/net/http/client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7100">
-          <caret line="368" column="5" selection-start-line="368" selection-start-column="5" selection-end-line="368" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/bean/i18n/querytranslationbycomponetresp.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -723,13 +708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Go/src/time/format.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2080">
-          <caret line="104" column="51" selection-start-line="104" selection-start-column="51" selection-end-line="104" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/translationcachemanager_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -737,31 +715,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Go/src/time/zoneinfo.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1240">
-          <caret line="66" column="9" selection-start-line="66" selection-start-column="4" selection-end-line="66" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/fmt/print.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="1000" column="42" selection-start-line="1000" selection-start-column="42" selection-end-line="1000" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
           <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/translationcachemanager.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1740">
-          <caret line="93" column="5" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -776,13 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="109" column="12" lean-forward="true" selection-start-line="109" selection-start-column="12" selection-end-line="109" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com/vmware/i18n/resource/conf/vipconfig.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -818,15 +768,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
           <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="e#14#42#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/translateutil.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
+        <state relative-caret-position="560">
           <caret line="96" selection-start-line="96" selection-end-line="96" />
           <folding>
             <element signature="e#14#207#0" expanded="true" />
@@ -843,23 +790,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Go/src/time/time.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="302" column="5" selection-start-line="302" selection-start-column="5" selection-end-line="302" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/bean/i18n/queryformattingpatternbylocaleresp.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
+        <state relative-caret-position="2220">
           <caret line="111" column="4" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/formatutil.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
+        <state relative-caret-position="1600">
           <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
           <folding>
             <element signature="e#14#116#0" expanded="true" />
@@ -874,23 +814,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/translationcachemanager.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1740">
+          <caret line="93" column="5" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com/vmware/i18n/resource/conf/vipconfig.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/archive/zip/reader_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4665">
+          <caret line="730" column="18" lean-forward="true" selection-start-line="730" selection-start-column="18" selection-end-line="730" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/time/time.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="648" column="63" selection-start-line="648" selection-start-column="63" selection-end-line="648" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/fmt/print.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="628" column="46" selection-start-line="628" selection-start-column="40" selection-end-line="628" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/time/zoneinfo.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="310" column="30" selection-start-line="310" selection-start-column="29" selection-end-line="310" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/time/format.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="683">
+          <caret line="378" column="1" lean-forward="true" selection-start-line="350" selection-end-line="378" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/time/zoneinfo_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="100" column="46" selection-start-line="100" selection-start-column="46" selection-end-line="100" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="12" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="12" />
-          <folding>
-            <element signature="e#14#43#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/com/vmware/i18n/client/util/dateformatutil.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#14#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="159">
+          <caret line="742" column="41" lean-forward="true" selection-start-line="742" selection-start-column="41" selection-end-line="742" selection-end-column="41" />
         </state>
       </provider>
     </entry>

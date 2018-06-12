@@ -53,13 +53,26 @@ const (
 	datetimePatternComponentLiteral
 )
 
+const (
+	stdTZ                    = iota                // "MST"
+	stdISO8601TZ                                   // "Z0700"  // prints Z for UTC
+	stdISO8601SecondsTZ                            // "Z070000"
+	stdISO8601ShortTZ                              // "Z07"
+	stdISO8601ColonTZ                              // "Z07:00" // prints Z for UTC
+	stdISO8601ColonSecondsTZ                       // "Z07:00:00"
+	stdNumTZ                                       // "-0700"  // always numeric
+	stdNumSecondsTz                                // "-070000"
+	stdNumShortTZ                                  // "-07"    // always numeric
+	stdNumColonTZ                                  // "-07:00" // always numeric
+	stdNumColonSecondsTZ                           // "-07:00:00"
+)
+
 // A list of currently unsupported units:
 // These still need to be implemented. For now they are ignored.
 var (
 	datetimeFormatUnitCutset = []rune{
 		datetimeFormatUnitEra,
 		datetimeForamtUnitQuarter,
-		datetimeFormatUnitTimeZone1,
 		datetimeFormatUnitTimeZone2,
 	}
 )
@@ -164,8 +177,7 @@ func formatDateTimeComponent(datetime time.Time, pattern string,locale string) (
 		//TODO
 		fallthrough
 	case string(datetimeFormatUnitTimeZone1):
-		//TODO
-		fallthrough
+		return formatDateTimeComponentLocationZone(datetime,len(pattern))
 	case string(datetimeFormatUnitTimeZone2):
 		//TODO
 	}
@@ -660,6 +672,36 @@ func formatDateTimeComponentPeriodNarrow(hour int,locale string) string {
 	return cacheFormatMap[locale].Messages.DayPeriodsFormat.Narrow[1]
 }
 
+func formatDateTimeComponentLocationZone(datetime time.Time, length int) (string, error){
+	var b []byte
+	name,offset := datetime.Zone()
+
+	zone := offset / 60 // convert to minutes
+	absoffset := offset
+	if zone < 0 {
+		b = append(b, '-')
+		zone = -zone
+		absoffset = -absoffset
+	} else {
+		b = append(b, '+')
+	}
+	b = appendInt(b, zone/60, 2)
+
+	switch length {
+	case datetimeFormatLength1Plus:
+		b = append(b, ':')
+		b = appendInt(b, zone%60, 2)
+		b = appendInt(b, absoffset%60, 2)
+		return string(b),nil
+	case datetimeFormatLengthWide:
+		b = append(b, ':')
+		b = appendInt(b, zone%60, 2)
+		return name + string(b),nil
+	}
+
+	return "",errors.New(fmt.Sprintf("unsupported zone-period: %d", length))
+}
+
 // lastSequenceIndex looks at the first character in a string and returns the
 // last digits of the first sequence of that character. For example:
 //  - ABC: 0
@@ -686,6 +728,36 @@ func lastSequenceIndex(str string) int {
 	}
 
 	return lastPos
+}
+
+// appendInt appends the decimal form of x to b and returns the result.
+// If the decimal form (excluding sign) is shorter than width, the result is padded with leading 0's.
+// Duplicates functionality in strconv, but avoids dependency.
+func appendInt(b []byte, x int, width int) []byte {
+	u := uint(x)
+	if x < 0 {
+		b = append(b, '-')
+		u = uint(-x)
+	}
+
+	// Assemble decimal in reverse order.
+	var buf [20]byte
+	i := len(buf)
+	for u >= 10 {
+		i--
+		q := u / 10
+		buf[i] = byte('0' + u - q*10)
+		u = q
+	}
+	i--
+	buf[i] = byte('0' + u)
+
+	// Add 0-padding.
+	for w := len(buf) - i; w < width; w++ {
+		b = append(b, '0')
+	}
+
+	return append(b, buf[i:]...)
 }
 
 

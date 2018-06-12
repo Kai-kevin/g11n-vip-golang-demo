@@ -13,7 +13,11 @@ var(
 
 func TestFormatDateTime(t *testing.T) {
 
-	dateTime,_ := time.Parse(dateTimeString,dateTimeString)
+	var cstSh, _ = time.LoadLocation("Asia/Shanghai")
+
+	dateTime,_ := time.ParseInLocation(dateTimeString,dateTimeString,cstSh)
+
+	fmt.Println(dateTime.Zone())
 
 	dFull,err := FormatDateTime(constants.FULL,dateTime,"fr")
 
@@ -22,4 +26,12 @@ func TestFormatDateTime(t *testing.T) {
 	}
 
 	fmt.Println(dFull)
+
+	dShortTW,errTW := FormatDateTime(constants.LONG,dateTime,"zh_TW")
+
+	if errTW != nil {
+		t.Fatal("TestFormatDateTime failed!!!")
+	}
+
+	fmt.Println(dShortTW)
 }
