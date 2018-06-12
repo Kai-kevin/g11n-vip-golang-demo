@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"io"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -32,8 +31,7 @@ func GetVipConfigInstance() *vipConfig {
 }
 
 func init() {
-	filepath, _ := filepath.Abs("C:/Users/kai.ruan/go/src/vipgoclient/com/vmware/i18n/resource/conf/vipconfig.properties")
-	vipConfigMap := ReadProperties(filepath)
+	vipConfigMap := ReadProperties("../../resource/conf/vipconfig.properties")
 	vipConfigInstance.ProductName = vipConfigMap["productName"]
 	vipConfigInstance.InitializeCache = vipConfigMap["initializeCache"]
 	vipConfigInstance.ProductId = vipConfigMap["productId"]
