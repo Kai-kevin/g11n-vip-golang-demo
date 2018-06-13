@@ -1,7 +1,6 @@
 package main
 
 import (
-	"vipgoclient/com/vmware/i18n/client/util"
 	"vipgoclient/com/vmware/i18n/client/bean/i18n"
 	"fmt"
 	"encoding/json"
@@ -28,5 +27,5 @@ func main(){
 
 	fmt.Println(string(file))
 
-	util.GetTranslationByComponent()
+	//util.GetTranslationByComponent()
 }

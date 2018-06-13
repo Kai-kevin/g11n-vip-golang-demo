@@ -15,13 +15,12 @@ type CacheDTO struct {
 	Component string
 }
 
-//缓存MAP
+//tranlation cache map
 var cachedMap = make(map[CacheDTO]map[string]string)
 
-//缓存format相关信息
+//format cache map
 var cacheFormatMap = make(map[string]*bean.QueryFormattingPatternByLocaleRespData)
 
-//读写锁
 var mux sync.RWMutex
 
 var once sync.Once
@@ -52,9 +51,9 @@ func init() {
 	})
 }
 
-//加载缓存信息，缓存的加载方式和逻辑
+//loading cache information
 func LoadCached() {
-	//获取Local信息和Component信息
+	//default separator is ','
 	locales := strings.Split(conf.GetVipConfigInstance().Locales, ",")
 	components := strings.Split(conf.GetVipConfigInstance().Components, ",")
 	productID := conf.GetVipConfigInstance().ProductId
@@ -71,31 +70,29 @@ func LoadCached() {
 				Version:   version,
 			}
 
-			//通过component获取翻译信息
+			//get the component translations
 			respEvent := GetTranslationByComponent(locale, component)
 
-			//获取缓存的信息
+			//get cache messages
 			cachedMap[cacheDTO] = respEvent.Data.Messages
 		}
 
-		//获取Format缓存信息
+		//get the format patterns cache
 		patternData := GetFormattingPatternsByLocal(locale)
 		cacheFormatMap[locale] = &
 			patternData.Data
 	}
 }
 
-//获取缓存Map
+
 func GetCacheMap() *map[CacheDTO]map[string]string {
 	return &cachedMap
 }
 
-//获取当前缓存FormatMap
 func GetFormatMap() *map[string]*bean.QueryFormattingPatternByLocaleRespData{
 	return &cacheFormatMap
 }
 
-//查询缓存信息
 func (*translationCacheManager) LookForTranslationlnCache(key string, dto CacheDTO) string {
 	mux.RLock()
 	defer mux.RUnlock()
@@ -110,9 +107,9 @@ func (*translationCacheManager) LookForTranslationlnCache(key string, dto CacheD
 	return ""
 }
 
-//增加缓存
 func (manager *translationCacheManager) AddCacheByComponent(dto CacheDTO, object interface{}) bool {
 
+	//compare to the maximum number of components
 	if len(cachedMap) >= manager.maxNumOfComponentInCache {
 		fmt.Println("CachedMap has alreay exceeded!")
 		return false
@@ -124,11 +121,11 @@ func (manager *translationCacheManager) AddCacheByComponent(dto CacheDTO, object
 
 	defer mux.Unlock()
 
-	//获取组件最大数值
+	//compare to the maximum number of translations in a component
 	if len(translationCache) < manager.maxNumOfTranslationInComponent {
 		return false
 	} else {
-		//数组更新
+		//update cache
 		translationRets := object.(map[string]string)
 
 		for k, v := range translationRets {
@@ -139,18 +136,17 @@ func (manager *translationCacheManager) AddCacheByComponent(dto CacheDTO, object
 	return true
 }
 
-//删除缓存
+//delete cache
 func (*translationCacheManager) RemoveCacheByComponent(dto CacheDTO) bool {
 	mux.Lock()
 	defer mux.Unlock()
 
-	//删除参数
 	delete(cachedMap, dto)
 
 	return true
 }
 
-//更新缓存
+
 func (*translationCacheManager) UpdateCacheByComponent(dto CacheDTO, object interface{}) bool {
 	mux.Lock()
 	defer mux.Unlock()

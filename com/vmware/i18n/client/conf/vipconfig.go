@@ -12,6 +12,7 @@ import (
 var vipConfigInstance = new(vipConfig)
 var once sync.Once
 
+//vipConfig.properties struct
 type vipConfig struct {
 	ProductName     string
 	ProductId string
@@ -43,6 +44,7 @@ func init() {
 	vipConfigInstance.NumOfThread, _ = strconv.Atoi(vipConfigMap["numOfThread"])
 }
 
+//Read properies from the specified path
 func ReadProperties(path string) map[string]string {
 	properties := make(map[string]string)
 

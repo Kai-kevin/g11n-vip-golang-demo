@@ -10,7 +10,7 @@ var enableCache = conf.GetVipConfigInstance().EnableCache
 var productID = conf.GetVipConfigInstance().ProductId
 var version = conf.GetVipConfigInstance().Version
 
-//获取翻译的值
+//get the translated value by key
 func GetTranslationByKey(key ,locale, component string) (string,error){
 
 	if(enableCache == "false"){

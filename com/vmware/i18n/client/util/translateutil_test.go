@@ -16,12 +16,12 @@ func TestGetFormattingPatternsByLocal(t *testing.T) {
 	//fmt.Println(time.Now().Format("06-01-02 15:04:05"))
 	//
 	//now := time.Now()
-	//local1, err1 := time.LoadLocation("") //等同于"UTC"
+	//local1, err1 := time.LoadLocation("") //equals "UTC"
 	//
 	//if err1 != nil {
 	//	fmt.Println(err1)
 	//}
-	//local2, err2 := time.LoadLocation("Local")//服务器设置的时区
+	//local2, err2 := time.LoadLocation("Local")//set location
 	//if err2 != nil {
 	//	fmt.Println(err2)
 	//}

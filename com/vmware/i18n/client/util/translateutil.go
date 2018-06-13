@@ -62,7 +62,7 @@ func GetTranslationByComponent(local, component string) *bean.QueryTranslationBy
 	return respData
 }
 
-//根据KEY和环境获取
+//get translated value by key
 func GetTranslationByKey(key, component, local string) *bean.QueryTranslationByKeyRespEvent {
 
 	productName := conf.GetVipConfigInstance().ProductName
@@ -87,7 +87,7 @@ func GetTranslationByKey(key, component, local string) *bean.QueryTranslationByK
 	return respData
 }
 
-//获取Formatter信息
+//get format information by local string
 func GetFormattingPatternsByLocal(local string) *bean.QueryFormattingPatternByLocaleRespEvent {
 
 	//获取翻译

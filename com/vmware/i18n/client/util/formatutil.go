@@ -80,14 +80,14 @@ func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err
 	return
 }
 
-//format格式化数字格式
-func FormatNumberDefault(obj interface{},local string) (str string,err error){
-	format := "###,##0.###"
-
-	fmt.Sprintf(format)
-
-	return "",nil
-}
+//format number
+//func FormatNumberDefault(obj interface{},local string) (str string,err error){
+//	format := "###,##0.###"
+//
+//	fmt.Sprintf(format)
+//
+//	return "",nil
+//}
 
 
 //获取分数格式，需要知道地区信息
@@ -161,7 +161,7 @@ func FormatNumber(format *format.NumberFormat,number float64) string{
 
 func numberRound(number float64,decimals int) string {
 
-	//十进制
+	//Decimal
 	if number == float64(int64(number)) {
 		return strconv.FormatInt(int64(number), 10)
 	}

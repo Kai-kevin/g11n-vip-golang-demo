@@ -672,6 +672,7 @@ func formatDateTimeComponentPeriodNarrow(hour int,locale string) string {
 	return cacheFormatMap[locale].Messages.DayPeriodsFormat.Narrow[1]
 }
 
+// formatDateTimeComponentLocationZone renders different zone formats
 func formatDateTimeComponentLocationZone(datetime time.Time, length int) (string, error){
 	var b []byte
 	name,offset := datetime.Zone()

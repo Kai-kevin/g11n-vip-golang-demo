@@ -1,6 +1,6 @@
 package constants
 
-//日期时间格式常量
+//DATE TIME Constants
 const (
 	SHORTDATE = iota
 	MEDIUMDATE
