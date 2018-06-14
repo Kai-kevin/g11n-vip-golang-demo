@@ -62,7 +62,10 @@ func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err
 		}
 	}
 
-	numberFormat.NegativePrefix = "-"
+	//init some params
+	numberFormat.NegativePrefix = cacheFormat.Messages.NumberSymbols.MinusSign
+	numberFormat.DecimalSymbol = cacheFormat.Messages.NumberSymbols.Decimal
+	numberFormat.ExponentialSymbol = cacheFormat.Messages.NumberSymbols.Exponential
 
 	//percentPattern := cacheFormat.Messages.NumberFormats.PercentFormats
 	//
@@ -114,7 +117,7 @@ func FormatNumber(format *format.NumberFormat,number float64) string{
 		stringValue = fmt.Sprintf("%f",value)
 	}
 
-	pos := strings.Index(stringValue,".")
+	pos := strings.Index(stringValue,format.DecimalSymbol)
 
 	integer := stringValue
 	decimal := ""
@@ -132,7 +135,7 @@ func FormatNumber(format *format.NumberFormat,number float64) string{
 	}
 
 	if len(decimal) > 0 {
-		decimal = "." + decimal
+		decimal = format.DecimalSymbol + decimal
 	}
 
 	// put the integer portion into properly sized groups
@@ -140,7 +143,7 @@ func FormatNumber(format *format.NumberFormat,number float64) string{
 		if len(integer) > format.GroupSizeMain {
 			groupFinal := integer[len(integer)-format.GroupSizeFinal:]
 			groupFirst := integer[:len(integer)-format.GroupSizeFinal]
-			integer = strings.Join(chunkString(groupFirst, format.GroupSizeMain), ",") + "," + groupFinal
+			integer = strings.Join(chunkString(groupFirst, format.GroupSizeMain), format.GroupSymbol) + format.GroupSymbol + groupFinal
 		}
 	}
 
