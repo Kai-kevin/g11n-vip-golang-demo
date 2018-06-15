@@ -8,10 +8,6 @@ import (
 	"errors"
 )
 
-type Translator struct{
-	locale string
-}
-
 var enableCache = conf.GetVipConfigInstance().EnableCache
 var productID = conf.GetVipConfigInstance().ProductId
 var version = conf.GetVipConfigInstance().Version
