@@ -2,10 +2,10 @@ package sample
 
 import "vipgoclient/com/vmware/i18n/client/util"
 
-//TODO 实例调用client代码
+//TODO sample for call the format utils
 
 func getNumberFormat(locale string) {
 	util.GetNumberFormatByLocal(locale)
 }
 
-//TODO 获取Date
+//TODO sample for call the DateFormatUtil

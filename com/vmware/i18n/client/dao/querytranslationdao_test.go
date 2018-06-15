@@ -2,33 +2,53 @@ package dao
 
 import (
 	"testing"
-	"log"
-	"fmt"
+	"vipgoclient/com/vmware/i18n/client/util"
 )
 
-func TestGetTranslationByKey(t *testing.T) {
-	value,err := GetTranslationByKey("general.download","zh_CN","JS")
+func TestGetFormattingPatternsByLocal(t *testing.T) {
+	resp := GetFormattingPatternsByLocal("fr")
 
-	if(err != nil){
-		log.Fatal(err)
-	}else{
-		fmt.Println(value)
+	if resp.Response.Code != 200{
+		t.Fatal("GetFormattingPatternsByLocal failed!!!")
 	}
+
+	t.Log(resp.Data.Messages)
+
+	//fmt.Println(time.Now().Format("06-01-02 15:04:05"))
+	//
+	//now := time.Now()
+	//local1, err1 := time.LoadLocation("") //equals "UTC"
+	//
+	//if err1 != nil {
+	//	fmt.Println(err1)
+	//}
+	//local2, err2 := time.LoadLocation("Local")//set location
+	//if err2 != nil {
+	//	fmt.Println(err2)
+	//}
+	//
+	//fmt.Println(local1.String())
+	//fmt.Println(time.Local.String())
+	//
+	//local3, err3 := time.LoadLocation("America/Los_Angeles")
+	//if err3 != nil {
+	//	fmt.Println(err3)
+	//}
+	//
+	//fmt.Println(local3.String())
+	//
+	//fmt.Println(now.In(local1))
+	//fmt.Println(now.In(local2))
+	//fmt.Println(now.In(local3))
+
 }
 
-func TestGetTranslationByKeyWithParams(t *testing.T) {
-	value,err := GetTranslationByKeyWithParams("general.download1","zh_CN","JS","prefix","suffix")
+func TestGetFormatMap(t *testing.T){
+	cacheFormatMap := *util.GetFormatMap()
 
-	if(err != nil){
-		log.Fatal(err)
-	}else{
-		fmt.Println(value)
+	if cacheFormatMap["fr"].Messages.DateTimeFormat.Full == ""{
+		t.Fatal("cacheFormat failed!!!")
 	}
 
-	value1,err1 := GetTranslationByKeyWithParams("general.download1","zh_CN","JS","prefix","suffix")
-	if(err1 != nil){
-		log.Fatal(err1)
-	}else{
-		fmt.Println(value1)
-	}
+	t.Log(cacheFormatMap["fr"])
 }

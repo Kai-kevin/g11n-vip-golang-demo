@@ -1,113 +1,76 @@
 package util
 
 import (
-	"encoding/json"
-	"fmt"
-	consulapi "github.com/hashicorp/consul/api"
-	"net/http"
+	"strings"
 	"strconv"
-	"vipgoclient/com/vmware/i18n/client/bean/i18n"
 	"vipgoclient/com/vmware/i18n/client/conf"
+	"vipgoclient/com/vmware/i18n/client/dao"
+	"errors"
 )
 
 type Translator struct{
 	locale string
 }
 
-func GetTranslationByComponent(local, component string) *bean.QueryTranslationByCompRespEvent {
+var enableCache = conf.GetVipConfigInstance().EnableCache
+var productID = conf.GetVipConfigInstance().ProductId
+var version = conf.GetVipConfigInstance().Version
 
-	config := consulapi.DefaultConfig()
+//get the translated value by key
+func getTranslationByKey(key, locale, component string) (string,error){
 
-	client, err := consulapi.NewClient(config)
+	if(enableCache == "false"){
+		respEvent := dao.GetTranslationByKey(key ,locale, component)
 
-	//继承consul 负载均衡
-	servicesData, _, err := client.Health().Service("i18n", "", false,
-		&consulapi.QueryOptions{})
+		if(respEvent.Response.Code == 200){
 
-	for _, entry := range servicesData {
+			return respEvent.Data.Translation,nil
+		}else{
+			return "",errors.New("could't find the key:" + key + "value")
+		}
 
-		fmt.Println(entry.Service.Address)
-		fmt.Println(entry.Service.Port)
+	}else{
+		cacheDTO := CacheDTO{
+			Locale: locale,
+			Component:component,
+			ProductID: productID,
+			Version:version,
+		}
+
+		cacheMap := *GetCacheMap()
+
+		if cacheMap[cacheDTO][key] != ""{
+			return cacheMap[cacheDTO][key],nil
+		}else{
+			respEvent := dao.GetTranslationByKey(key ,locale, component)
+
+			if(respEvent.Response.Code == 200){
+
+				//update cache
+				defer GetTranslationCacheManagerInstance().UpdateCacheByComponent(cacheDTO,map[string]string{key:respEvent.Data.Translation})
+
+				return respEvent.Data.Translation,nil
+			}else{
+				return "",errors.New("could't find the key:" + key + "value")
+			}
+		}
+
 	}
+}
 
-	fmt.Print(servicesData)
+//get the translated value by key and values
+func (*translationCacheManager) GetTranslationByKeyWithParams(key, locale, component string,params ...interface{}) (string,error){
 
-	fmt.Println(client.Agent().NodeName())
+	value,err := getTranslationByKey(key,locale,component)
 
 	if err != nil {
-		fmt.Println(err)
+		return value,err
 	}
 
-	productName := conf.GetVipConfigInstance().ProductName
-	version := conf.GetVipConfigInstance().Version
-
-	url := "http://" + servicesData[0].Service.Address + ":" + strconv.Itoa(servicesData[0].Service.Port) +
-		"/i18n/api/v2/translation/products/" + productName + "/versions/" + version +
-		"/locales/" + local + "/components/" + component
-
-	fmt.Println(url)
-
-	resp, _ := http.Get(url)
-
-	respData := new(bean.QueryTranslationByCompRespEvent)
-
-	error := json.NewDecoder(resp.Body).Decode(respData)
-
-	if error != nil {
-		fmt.Println(error)
+	for index,param := range params{
+		value = strings.Replace(value,"{"+strconv.Itoa(index)+"}",param.(string),-1)
 	}
 
-	fmt.Println(respData.Data.Messages)
+	return value,nil
 
-	return respData
 }
-
-//get translated value by key
-func GetTranslationByKey(key, component, local string) *bean.QueryTranslationByKeyRespEvent {
-
-	productName := conf.GetVipConfigInstance().ProductName
-	version := conf.GetVipConfigInstance().Version
-	//获取翻译
-	url := "http://" + conf.GetVipConfigInstance().VipServer +
-		"/i18n/api/v2/translation/products/" + productName + "/versions/" +
-		version + "/locales/" + local + "/components/" + component + "/keys/" + key
-
-	fmt.Println(url)
-
-	resp, _ := http.Get(url)
-
-	respData := new(bean.QueryTranslationByKeyRespEvent)
-
-	error := json.NewDecoder(resp.Body).Decode(respData)
-
-	if error != nil {
-		fmt.Println(error)
-	}
-
-	return respData
-}
-
-//get format information by local string
-func GetFormattingPatternsByLocal(local string) *bean.QueryFormattingPatternByLocaleRespEvent {
-
-	//获取翻译
-	url := "http://" + conf.GetVipConfigInstance().VipServer + "/i18n/api/v2/formatting/patterns/locales/" + local
-
-	fmt.Println(url)
-
-	resp, _ := http.Get(url)
-
-	respData := new(bean.QueryFormattingPatternByLocaleRespEvent)
-
-	error := json.NewDecoder(resp.Body).Decode(respData)
-
-	if error != nil {
-		fmt.Println(error)
-	}
-
-	fmt.Println(respData.Data)
-
-	return respData
-}
-
-

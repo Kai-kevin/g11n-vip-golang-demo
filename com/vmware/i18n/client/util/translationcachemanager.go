@@ -6,6 +6,7 @@ import (
 	"sync"
 	"vipgoclient/com/vmware/i18n/client/conf"
 	"vipgoclient/com/vmware/i18n/client/bean/i18n"
+	"vipgoclient/com/vmware/i18n/client/dao"
 )
 
 type CacheDTO struct {
@@ -71,14 +72,14 @@ func LoadCached() {
 			}
 
 			//get the component translations
-			respEvent := GetTranslationByComponent(locale, component)
+			respEvent := dao.GetTranslationByComponent(locale, component)
 
 			//get cache messages
 			cachedMap[cacheDTO] = respEvent.Data.Messages
 		}
 
 		//get the format patterns cache
-		patternData := GetFormattingPatternsByLocal(locale)
+		patternData := dao.GetFormattingPatternsByLocal(locale)
 		cacheFormatMap[locale] = &
 			patternData.Data
 	}
