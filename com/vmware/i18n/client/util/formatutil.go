@@ -1,62 +1,77 @@
 package util
 
 import (
-	"math"
+	"errors"
 	"fmt"
+	"math"
+	"regexp"
+	"strconv"
 	"strings"
 	"vipgoclient/com/vmware/i18n/client/format"
-	"errors"
-	"strconv"
 )
 
-func GetCurrencyFormatByLocal(locale string) (numberFormat format.NumberFormat,err error){
+func GetCurrencyFormatByLocal(locale string) (numberFormat format.NumberFormat, err error) {
 	cacheformatMap := *GetFormatMap()
 	cacheFormat := cacheformatMap[locale]
 
-	if cacheFormat == nil{
-		err = errors.New("Can not get cacheNumberFromat from locale " + locale)
+	if cacheFormat == nil {
+		err = errors.New("Can not get cacheCurrencyFormat from locale " + locale)
 		return
 	}
 
-	return GetNumberFormatByPattern(locale,cacheFormat.Messages.NumberFormats.CurrencyFormats)
+	return GetNumberFormatByPattern(locale, cacheFormat.Messages.NumberFormats.CurrencyFormats)
 }
 
-func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err error){
+func GetPercentFormatByLocal(locale string) (numberFormat format.NumberFormat, err error) {
 	cacheformatMap := *GetFormatMap()
 	cacheFormat := cacheformatMap[locale]
 
-	if cacheFormat == nil{
-		err = errors.New("Can not get cacheNumberFromat from locale " + locale)
+	if cacheFormat == nil {
+		err = errors.New("Can not get cachePercentFormat from locale " + locale)
 		return
 	}
 
-	return GetNumberFormatByPattern(locale,cacheFormat.Messages.NumberFormats.DecimalFormats)
+	return GetNumberFormatByPattern(locale, cacheFormat.Messages.NumberFormats.PercentFormats)
 }
 
-func GetNumberFormatByPattern(locale string,formatPattern string) (numberFormat format.NumberFormat,err error){
+func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat, err error) {
+	cacheformatMap := *GetFormatMap()
+	cacheFormat := cacheformatMap[locale]
+
+	if cacheFormat == nil {
+		err = errors.New("Can not get cacheNumberFormat from locale " + locale)
+		return
+	}
+
+	return GetNumberFormatByPattern(locale, cacheFormat.Messages.NumberFormats.DecimalFormats)
+}
+
+func GetNumberFormatByPattern(locale string, formatPattern string) (numberFormat format.NumberFormat, err error) {
 
 	numberFormat = *new(format.NumberFormat)
 
+	numberFormat.Pattern = formatPattern
+
 	pos := strings.Index(formatPattern, ".")
 
-	if pos != -1{
-		pos2 := strings.LastIndex(formatPattern,"0")
+	if pos != -1 {
+		pos2 := strings.LastIndex(formatPattern, "0")
 		if pos2 > pos {
 			numberFormat.MinDecimalDigits = pos2 - pos
 		}
 
 		pos3 := strings.LastIndex(formatPattern, "#")
 
-		if pos3 > pos2{
+		if pos3 > pos2 {
 			numberFormat.MaxDecimalDigits = pos3 - pos
-		}else{
+		} else {
 			numberFormat.MaxDecimalDigits = numberFormat.MinDecimalDigits
 		}
 
 		formatPattern = formatPattern[0:pos]
 	}
 
-	p := strings.Replace(formatPattern,",","",-1)
+	p := strings.Replace(formatPattern, ",", "", -1)
 
 	pos = strings.Index(p, "0")
 	if pos != -1 {
@@ -110,37 +125,54 @@ func GetNumberFormatByPattern(locale string,formatPattern string) (numberFormat 
 //	return "",nil
 //}
 
-
 //get percent format
-func FormatPercent(format *format.NumberFormat,number float64) string{
-		format.Multiplier = 100
+func FormatPercent(format *format.NumberFormat, number float64) string {
+	format.Multiplier = 100
 
-		format.Percent = "%"
-		format.PositiveSuffix = "%"
-		format.NegativeSuffix = "%"
+	format.Percent = "%"
 
+	r, _ := regexp.Compile("[\\.\\,#0]+")
 
-	return FormatNumber(format,number)
+	strs := r.FindStringSubmatch(format.Pattern)
+
+	if len(strs) == 0 {
+		return ""
+	}
+
+	ret := strings.Replace(format.Pattern, strs[0], FormatNumber(format, number), -1)
+
+	return strings.Replace(ret, "%", format.Percent, -1)
 }
 
 // get currency number format
-func FormatCurrency(format *format.NumberFormat,number float64) string{
-	return format.CurrencySymbol + FormatNumber(format,number)
+func FormatCurrency(format *format.NumberFormat, number float64) string {
+
+	r, _ := regexp.Compile("[\\.\\,#0]+")
+
+	strs := r.FindStringSubmatch(format.Pattern)
+
+	if len(strs) == 0 {
+		return ""
+	}
+
+	ret := strings.Replace(format.Pattern, strs[0], FormatNumber(format, number), -1)
+
+	return strings.Replace(ret, "¤", format.CurrencySymbol, -1)
 }
 
-func FormatNumber(format *format.NumberFormat,number float64) string{
+func FormatNumber(format *format.NumberFormat, number float64) string {
 	negative := number < 0
 
 	value := math.Abs(number * float64(format.Multiplier))
 	stringValue := ""
 
-	if format.MaxDecimalDigits >= 0{
-		stringValue = numberRound(value,format.MaxDecimalDigits)
-	}else{
-		stringValue = fmt.Sprintf("%f",value)
+	if format.MaxDecimalDigits >= 0 {
+		stringValue = numberRound(value, format.MaxDecimalDigits)
+	} else {
+		stringValue = fmt.Sprintf("%f", value)
 	}
 
-	pos := strings.Index(stringValue,format.DecimalSymbol)
+	pos := strings.Index(stringValue, ".")
 
 	integer := stringValue
 	decimal := ""
@@ -178,14 +210,10 @@ func FormatNumber(format *format.NumberFormat,number float64) string{
 		formatted = format.PositivePrefix + integer + decimal + format.PositiveSuffix
 	}
 
-	// replace percents and permilles with the local symbols (likely to be exactly the same)
-	formatted = strings.Replace(formatted, "%", string(format.Percent), -1)
-	formatted = strings.Replace(formatted, "‰", string(format.Permille), -1)
-
 	return formatted
 }
 
-func numberRound(number float64,decimals int) string {
+func numberRound(number float64, decimals int) string {
 
 	//Decimal
 	if number == float64(int64(number)) {
@@ -195,18 +223,18 @@ func numberRound(number float64,decimals int) string {
 	str := fmt.Sprintf("%f", number)
 	pos := strings.Index(str, ".")
 
-	if pos != -1 && len(str) >  (pos + decimals){
+	if pos != -1 && len(str) > (pos+decimals) {
 
-		num,_ := strconv.ParseFloat(str,64)
+		num, _ := strconv.ParseFloat(str, 64)
 
-		num = num * (math.Pow(10,float64(decimals)))
+		num = num * (math.Pow(10, float64(decimals)))
 
 		convNum := math.Round(num)
 
-		value := convNum / (math.Pow(10,float64(decimals)))
+		value := convNum / (math.Pow(10, float64(decimals)))
 
 		return strconv.FormatFloat(value, 'f', -1, 64)
-	}else{
+	} else {
 		return strconv.FormatFloat(number, 'f', -1, 64)
 	}
 }
@@ -239,4 +267,3 @@ func chunkString(str string, size int) []string {
 
 	return chunks
 }
-

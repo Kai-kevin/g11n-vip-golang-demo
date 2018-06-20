@@ -19,7 +19,7 @@ func TestFormatNumber(t *testing.T) {
 }
 
 func TestFormatPercent(t *testing.T) {
-	format,err := GetNumberFormatByLocal("fr")
+	format,err := GetPercentFormatByLocal("fr")
 
 	if err != nil{
 		t.Fatal("Test formatNumber failed!!!")

@@ -17,4 +17,5 @@ type NumberFormat struct {
 	GroupSymbol       string
 	ExponentialSymbol string
 	CurrencySymbol	  string
+	Pattern 		  string
 }
