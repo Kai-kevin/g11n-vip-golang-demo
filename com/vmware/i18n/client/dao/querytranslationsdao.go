@@ -2,10 +2,8 @@ package dao
 
 import (
 	"vipgoclient/com/vmware/i18n/client/conf"
-	"strconv"
 	"vipgoclient/com/vmware/i18n/client/bean/i18n"
 	"fmt"
-	consulapi "github.com/hashicorp/consul/api"
 	"net/http"
 	"encoding/json"
 )
@@ -16,32 +14,36 @@ var version = conf.GetVipConfigInstance().Version
 
 func GetTranslationByComponent(local, component string) *bean.QueryTranslationByCompRespEvent {
 
-	config := consulapi.DefaultConfig()
-
-	client, err := consulapi.NewClient(config)
+	//config := consulapi.DefaultConfig()
+	//
+	//client, err := consulapi.NewClient(config)
 
 	//load balance by consul
-	servicesData, _, err := client.Health().Service("i18n", "", false,
-		&consulapi.QueryOptions{})
-
-	for _, entry := range servicesData {
-
-		fmt.Println(entry.Service.Address)
-		fmt.Println(entry.Service.Port)
-	}
-
-	fmt.Print(servicesData)
-
-	fmt.Println(client.Agent().NodeName())
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
+	//servicesData, _, err := client.Health().Service("i18n", "", false,
+	//	&consulapi.QueryOptions{})
+	//
+	//for _, entry := range servicesData {
+	//
+	//	fmt.Println(entry.Service.Address)
+	//	fmt.Println(entry.Service.Port)
+	//}
+	//
+	//fmt.Print(servicesData)
+	//
+	//fmt.Println(client.Agent().NodeName())
+	//
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//
 	productName := conf.GetVipConfigInstance().ProductName
-	version := conf.GetVipConfigInstance().Version
+	//version := conf.GetVipConfigInstance().Version
+	//
+	//url := "http://" + servicesData[0].Service.Address + ":" + strconv.Itoa(servicesData[0].Service.Port) +
+	//	"/i18n/api/v2/translation/products/" + productName + "/versions/" + version +
+	//	"/locales/" + local + "/components/" + component
 
-	url := "http://" + servicesData[0].Service.Address + ":" + strconv.Itoa(servicesData[0].Service.Port) +
+	url := "http://" + conf.GetVipConfigInstance().VipServer +
 		"/i18n/api/v2/translation/products/" + productName + "/versions/" + version +
 		"/locales/" + local + "/components/" + component
 
@@ -57,7 +59,7 @@ func GetTranslationByComponent(local, component string) *bean.QueryTranslationBy
 		fmt.Println(error)
 	}
 
-	fmt.Println(respData.Data.Messages)
+	//fmt.Println(respData.Data.Messages)
 
 	return respData
 }
@@ -104,7 +106,7 @@ func GetFormattingPatternsByLocal(local string) *bean.QueryFormattingPatternByLo
 		fmt.Println(error)
 	}
 
-	fmt.Println(respData.Data)
+	//fmt.Println(respData.Data)
 
 	return respData
 }
