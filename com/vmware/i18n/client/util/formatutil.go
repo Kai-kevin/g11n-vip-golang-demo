@@ -9,10 +9,8 @@ import (
 	"strconv"
 )
 
-func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err error){
-
+func GetCurrencyFormatByLocal(locale string) (numberFormat format.NumberFormat,err error){
 	cacheformatMap := *GetFormatMap()
-
 	cacheFormat := cacheformatMap[locale]
 
 	if cacheFormat == nil{
@@ -20,14 +18,29 @@ func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err
 		return
 	}
 
-	formatPattern := cacheFormat.Messages.NumberFormats.DecimalFormats
+	return GetNumberFormatByPattern(locale,cacheFormat.Messages.NumberFormats.CurrencyFormats)
+}
+
+func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err error){
+	cacheformatMap := *GetFormatMap()
+	cacheFormat := cacheformatMap[locale]
+
+	if cacheFormat == nil{
+		err = errors.New("Can not get cacheNumberFromat from locale " + locale)
+		return
+	}
+
+	return GetNumberFormatByPattern(locale,cacheFormat.Messages.NumberFormats.DecimalFormats)
+}
+
+func GetNumberFormatByPattern(locale string,formatPattern string) (numberFormat format.NumberFormat,err error){
 
 	numberFormat = *new(format.NumberFormat)
 
 	pos := strings.Index(formatPattern, ".")
 
 	if pos != -1{
-		pos2 := strings.Index(formatPattern,"0")
+		pos2 := strings.LastIndex(formatPattern,"0")
 		if pos2 > pos {
 			numberFormat.MinDecimalDigits = pos2 - pos
 		}
@@ -62,10 +75,15 @@ func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err
 		}
 	}
 
+	cacheformatMap := *GetFormatMap()
+	cacheFormat := cacheformatMap[locale]
+
 	//init some params
 	numberFormat.NegativePrefix = cacheFormat.Messages.NumberSymbols.MinusSign
 	numberFormat.DecimalSymbol = cacheFormat.Messages.NumberSymbols.Decimal
 	numberFormat.ExponentialSymbol = cacheFormat.Messages.NumberSymbols.Exponential
+	numberFormat.CurrencySymbol = cacheFormat.Messages.CurrencySymbol
+	numberFormat.GroupSymbol = cacheFormat.Messages.NumberSymbols.Group
 
 	//percentPattern := cacheFormat.Messages.NumberFormats.PercentFormats
 	//
@@ -93,7 +111,7 @@ func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat,err
 //}
 
 
-//获取分数格式，需要知道地区信息
+//get percent format
 func FormatPercent(format *format.NumberFormat,number float64) string{
 		format.Multiplier = 100
 
@@ -103,6 +121,11 @@ func FormatPercent(format *format.NumberFormat,number float64) string{
 
 
 	return FormatNumber(format,number)
+}
+
+// get currency number format
+func FormatCurrency(format *format.NumberFormat,number float64) string{
+	return format.CurrencySymbol + FormatNumber(format,number)
 }
 
 func FormatNumber(format *format.NumberFormat,number float64) string{

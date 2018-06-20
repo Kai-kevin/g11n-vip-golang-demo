@@ -31,6 +31,16 @@ func (formator *Formator)GetPercentNumber(number float64) (string,error){
 	return util.FormatPercent(&format,number),nil
 }
 
+func (formator *Formator)GetCurrencyNumber(number float64) (string,error){
+	format,err := util.GetCurrencyFormatByLocal(formator.Locale)
+
+	if err != nil{
+		return "",err
+	}
+
+	return util.FormatCurrency(&format,number),nil
+}
+
 //@Pattern The format pattern is from cldr,currently just support patterns listed below;
 //the enum value is
 // SHORTDATE
