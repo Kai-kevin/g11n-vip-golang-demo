@@ -27,7 +27,7 @@ func TestFormatDateTime(t *testing.T) {
 
 	fmt.Println(dFull)
 
-	dShortTW,errTW := FormatDateTime(constants.LONG,dateTime,"zh_TW")
+	dShortTW,errTW := FormatDateTime(constants.LONG,dateTime,"ja")
 
 	if errTW != nil {
 		t.Fatal("TestFormatDateTime failed!!!")

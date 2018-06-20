@@ -2,7 +2,6 @@ package dao
 
 import (
 	"testing"
-	"vipgoclient/com/vmware/i18n/client/util"
 )
 
 func TestGetFormattingPatternsByLocal(t *testing.T) {
@@ -43,12 +42,12 @@ func TestGetFormattingPatternsByLocal(t *testing.T) {
 
 }
 
-func TestGetFormatMap(t *testing.T){
-	cacheFormatMap := *util.GetFormatMap()
-
-	if cacheFormatMap["fr"].Messages.DateTimeFormat.Full == ""{
-		t.Fatal("cacheFormat failed!!!")
-	}
-
-	t.Log(cacheFormatMap["fr"])
-}
+//func TestGetFormatMap(t *testing.T){
+//	cacheFormatMap := *util.GetFormatMap()
+//
+//	if cacheFormatMap["fr"].Messages.DateTimeFormat.Full == ""{
+//		t.Fatal("cacheFormat failed!!!")
+//	}
+//
+//	t.Log(cacheFormatMap["fr"])
+//}
