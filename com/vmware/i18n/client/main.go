@@ -4,9 +4,28 @@ import (
 	"fmt"
 	"context"
 	"time"
+	"reflect"
+	"strconv"
 )
 
+type ReflectionTest struct{
+	name string `test1:"1111";test2:"2222"`
+}
+
 func main(){
+
+
+	str := "\"123\""
+
+	fmt.Println(str[1])
+
+	fmt.Println(strconv.Unquote(str))
+	testReflect := ReflectionTest{"atest"}
+
+	s := reflect.TypeOf(testReflect)
+
+	fmt.Println(s.Field(0).Tag.Get("test1"))
+
 
 	//respData := bean.QueryTranslationByCompRespData{
 	//	ProductName:"1111",
@@ -39,7 +58,7 @@ func main(){
 
 	close(origin)
 
-	<-wait
+	//<-wait
 
 	TestContext()
 
@@ -64,6 +83,7 @@ func TestContext(){
 
 	}(ctx)
 
+
 	time.Sleep(10 * time.Second)
 	fmt.Println("通知监控停止")
 	cancel()
@@ -86,7 +106,17 @@ func Processor(seq chan int,wait chan struct{}){
 				out <- num
 			}
 		}
+
+		defer func() {
+			if err := recover(); err != nil {
+				fmt.Println("something is wrong")
+			}
+		}()
+
+		panic("test")
 		close(out)
+
+
 	}()
 }
 

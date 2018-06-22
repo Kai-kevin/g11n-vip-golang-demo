@@ -7,6 +7,7 @@ import (
 	"vipgoclient/com/vmware/i18n/client/conf"
 	"vipgoclient/com/vmware/i18n/client/bean/i18n"
 	"vipgoclient/com/vmware/i18n/client/dao"
+	"time"
 )
 
 type CacheDTO struct {
@@ -54,6 +55,9 @@ func init() {
 
 //loading cache information
 func LoadCached() {
+
+	now := time.Now();
+
 	//default separator is ','
 	locales := strings.Split(conf.GetVipConfigInstance().Locales, ",")
 	components := strings.Split(conf.GetVipConfigInstance().Components, ",")
@@ -83,8 +87,9 @@ func LoadCached() {
 		cacheFormatMap[locale] = &
 			patternData.Data
 	}
-}
 
+	fmt.Println("Load cached successfully, cost ",time.Since(now))
+}
 
 func GetCacheMap() *map[CacheDTO]map[string]string {
 	return &cachedMap

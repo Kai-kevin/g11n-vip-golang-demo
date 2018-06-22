@@ -12,4 +12,6 @@ func TestLoadCached(t *testing.T) {
 	cacheMap := *GetCacheMap()
 
 	fmt.Println(cacheMap)
+
+	LoadAllCached4Paral()
 }
