@@ -16,10 +16,15 @@ var cachedMap4Paral sync.Map
 //format cache map
 var cacheFormatMap4Paral sync.Map
 
-
-
+var localsChan chan string
 
 func LoadAllCached4Paral() {
+
+		defer func() {
+			if err := recover();err != nil{
+				fmt.Println("Load cached failed:",err)
+			}
+		}()
 
 		initializeCache := conf.GetVipConfigInstance().InitializeCache
 
@@ -27,16 +32,22 @@ func LoadAllCached4Paral() {
 
 			now := time.Now()
 
-			var wg *sync.WaitGroup
-
 			//default separator is ','
 			locales := strings.Split(conf.GetVipConfigInstance().Locales, ",")
 
+			var wg sync.WaitGroup
 
-				wg.Add(len(locales))
+			localsChan = make(chan string,len(locales))
 
+			LoadCached4Paral(locales,&wg)
 
-			LoadCached4Paral(locales,wg)
+			for _,locale := range locales {
+
+				localsChan <- locale
+				wg.Add(1)
+			}
+
+			close(localsChan)
 
 			wg.Wait()
 
@@ -50,35 +61,51 @@ func LoadCached4Paral(locals []string,wg *sync.WaitGroup) {
 
 	components := strings.Split(conf.GetVipConfigInstance().Components, ",")
 
-	for _,locale := range locals{
+	for i:= 0; i < len(locals); i++ {
 
 		go func() {
 			defer wg.Done()
 
+			locale4Tmp := <- localsChan
+
+			fmt.Println(locale4Tmp)
+
 			for _, component := range components {
 
 				cacheDTO := CacheDTO{
-					Locale:    locale,
+					Locale:    locale4Tmp,
 					Component: component,
 					ProductID: productID,
 					Version:   version,
 				}
 
 				//get the component translations
-				respEvent := dao.GetTranslationByComponent(locale, component)
+				respEvent := dao.GetTranslationByComponent(locale4Tmp, component)
 
 				//get cache messages
-
 				cachedMap4Paral.Store(cacheDTO,respEvent.Data.Messages)
 			}
 
 			//get the format patterns cache
-			patternData := dao.GetFormattingPatternsByLocal(locale)
+			patternData := dao.GetFormattingPatternsByLocal(locale4Tmp)
 
-			cacheFormatMap4Paral.Store(locale,&patternData.Data)
+			cacheFormatMap4Paral.Store(locale4Tmp,&patternData.Data)
 
-			}()
+			fmt.Println(cacheFormatMap4Paral)
+
+		}()
+
 	}
 
 	}
+
+
+
+func GetCache4ParalMap() *sync.Map {
+	return &cachedMap4Paral
+}
+
+func GetFormat4ParalMap() *sync.Map{
+	return &cacheFormatMap4Paral
+}
 

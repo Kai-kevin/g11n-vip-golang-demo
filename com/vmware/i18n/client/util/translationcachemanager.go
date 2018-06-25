@@ -49,6 +49,7 @@ func init() {
 
 		if initializeCache == "true" {
 			LoadCached()
+			LoadAllCached4Paral()
 		}
 	})
 }

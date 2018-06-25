@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"vipgoclient/com/vmware/i18n/client/format"
+	"vipgoclient/com/vmware/i18n/client/bean/i18n"
 )
 
 func GetCurrencyFormatByLocal(locale string) (numberFormat format.NumberFormat, err error) {
@@ -35,8 +36,11 @@ func GetPercentFormatByLocal(locale string) (numberFormat format.NumberFormat, e
 }
 
 func GetNumberFormatByLocal(locale string) (numberFormat format.NumberFormat, err error) {
-	cacheformatMap := *GetFormatMap()
-	cacheFormat := cacheformatMap[locale]
+	//cacheformatMap := *GetFormatMap()
+	//cacheFormat := cacheformatMap[locale]
+
+	cacheformatValue,_ := GetFormat4ParalMap().Load(locale)
+	cacheFormat := cacheformatValue.(*bean.QueryFormattingPatternByLocaleRespData)
 
 	if cacheFormat == nil {
 		err = errors.New("Can not get cacheNumberFormat from locale " + locale)
