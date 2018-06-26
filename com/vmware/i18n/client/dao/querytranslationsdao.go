@@ -56,7 +56,7 @@ func GetTranslationByComponent(local, component string) *bean.QueryTranslationBy
 	error := json.NewDecoder(resp.Body).Decode(respData)
 
 	if error != nil {
-		fmt.Println(error)
+		fmt.Println(url + error.Error())
 	}
 
 	//fmt.Println(respData.Data.Messages)
@@ -83,7 +83,7 @@ func GetTranslationByKey(key, component, local string) *bean.QueryTranslationByK
 	error := json.NewDecoder(resp.Body).Decode(respData)
 
 	if error != nil {
-		fmt.Println(error)
+		fmt.Println(url + error.Error())
 	}
 
 	return respData
@@ -103,7 +103,7 @@ func GetFormattingPatternsByLocal(local string) *bean.QueryFormattingPatternByLo
 	error := json.NewDecoder(resp.Body).Decode(respData)
 
 	if error != nil {
-		fmt.Println(error)
+		fmt.Println(url + error.Error())
 	}
 
 	//fmt.Println(respData.Data)

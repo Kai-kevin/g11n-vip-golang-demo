@@ -68,8 +68,6 @@ func LoadCached4Paral(locals []string,wg *sync.WaitGroup) {
 
 			locale4Tmp := <- localsChan
 
-			fmt.Println(locale4Tmp)
-
 			for _, component := range components {
 
 				cacheDTO := CacheDTO{
@@ -91,7 +89,7 @@ func LoadCached4Paral(locals []string,wg *sync.WaitGroup) {
 
 			cacheFormatMap4Paral.Store(locale4Tmp,&patternData.Data)
 
-			fmt.Println(cacheFormatMap4Paral)
+			//fmt.Println(cacheFormatMap4Paral)
 
 		}()
 
