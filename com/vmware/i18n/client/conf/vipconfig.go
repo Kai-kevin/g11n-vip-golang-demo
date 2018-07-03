@@ -6,11 +6,9 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"sync"
 )
 
 var vipConfigInstance = new(vipConfig)
-var once sync.Once
 
 //vipConfig.properties struct
 type vipConfig struct {

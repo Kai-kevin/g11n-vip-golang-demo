@@ -29,13 +29,12 @@ const (
 	datetimeForamtUnitQuarter   = 'Q'
 	datetimeFormatUnitTimeZone1 = 'z'
 	datetimeFormatUnitTimeZone2 = 'v'
-
 )
 
-var dateUnits = []string{string(datetimeFormatUnitEra),string(datetimeFormatUnitYear),string(datetimeFormatUnitMonth),string(datetimeFormatUnitDayOfWeek),
-string(datetimeFormatUnitDay),string(datetimeFormatUnitHour12),string(datetimeFormatUnitHour24),string(datetimeFormatUnitMinute),
-string(datetimeFormatUnitSecond),string(datetimeFormatUnitPeriod),string(datetimeForamtUnitQuarter),string(datetimeFormatUnitTimeZone1),
-string(datetimeFormatUnitTimeZone2),}
+var dateUnits = []string{string(datetimeFormatUnitEra), string(datetimeFormatUnitYear), string(datetimeFormatUnitMonth), string(datetimeFormatUnitDayOfWeek),
+	string(datetimeFormatUnitDay), string(datetimeFormatUnitHour12), string(datetimeFormatUnitHour24), string(datetimeFormatUnitMinute),
+	string(datetimeFormatUnitSecond), string(datetimeFormatUnitPeriod), string(datetimeForamtUnitQuarter), string(datetimeFormatUnitTimeZone1),
+	string(datetimeFormatUnitTimeZone2),}
 
 // The sequence length of datetime unit characters indicates how they should be
 // rendered.
@@ -49,22 +48,22 @@ const (
 
 // datetime formats are a sequences off datetime components and string literals
 const (
-	datetimePatternComponentUnit = iota
+	datetimePatternComponentUnit    = iota
 	datetimePatternComponentLiteral
 )
 
 const (
-	stdTZ                    = iota                // "MST"
-	stdISO8601TZ                                   // "Z0700"  // prints Z for UTC
-	stdISO8601SecondsTZ                            // "Z070000"
-	stdISO8601ShortTZ                              // "Z07"
-	stdISO8601ColonTZ                              // "Z07:00" // prints Z for UTC
-	stdISO8601ColonSecondsTZ                       // "Z07:00:00"
-	stdNumTZ                                       // "-0700"  // always numeric
-	stdNumSecondsTz                                // "-070000"
-	stdNumShortTZ                                  // "-07"    // always numeric
-	stdNumColonTZ                                  // "-07:00" // always numeric
-	stdNumColonSecondsTZ                           // "-07:00:00"
+	stdTZ                    = iota // "MST"
+	stdISO8601TZ                    // "Z0700"  // prints Z for UTC
+	stdISO8601SecondsTZ             // "Z070000"
+	stdISO8601ShortTZ               // "Z07"
+	stdISO8601ColonTZ               // "Z07:00" // prints Z for UTC
+	stdISO8601ColonSecondsTZ        // "Z07:00:00"
+	stdNumTZ                        // "-0700"  // always numeric
+	stdNumSecondsTz                 // "-070000"
+	stdNumShortTZ                   // "-07"    // always numeric
+	stdNumColonTZ                   // "-07:00" // always numeric
+	stdNumColonSecondsTZ            // "-07:00:00"
 )
 
 // A list of currently unsupported units:
@@ -105,17 +104,17 @@ func FormatDateTime(format int, datetime time.Time, locale string) (string, erro
 	case constants.SHORTTIME:
 		pattern = cacheFormatMap[locale].Messages.TimeFormat.Short
 	case constants.FULL:
-		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Full, "{0}",cacheFormatMap[locale].Messages.DateFormat.Full,-1)
-		pattern = strings.Replace(tempPattern, "{1}",cacheFormatMap[locale].Messages.TimeFormat.Full,-1)
+		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Full, "{0}", cacheFormatMap[locale].Messages.DateFormat.Full, -1)
+		pattern = strings.Replace(tempPattern, "{1}", cacheFormatMap[locale].Messages.TimeFormat.Full, -1)
 	case constants.LONG:
-		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Long, "{0}",cacheFormatMap[locale].Messages.DateFormat.Long,-1)
-		pattern = strings.Replace(tempPattern, "{1}",cacheFormatMap[locale].Messages.TimeFormat.Long,-1)
+		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Long, "{0}", cacheFormatMap[locale].Messages.DateFormat.Long, -1)
+		pattern = strings.Replace(tempPattern, "{1}", cacheFormatMap[locale].Messages.TimeFormat.Long, -1)
 	case constants.MEDIUM:
-		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Medium, "{0}",cacheFormatMap[locale].Messages.DateFormat.Medium,-1)
-		pattern = strings.Replace(tempPattern, "{1}",cacheFormatMap[locale].Messages.TimeFormat.Medium,-1)
+		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Medium, "{0}", cacheFormatMap[locale].Messages.DateFormat.Medium, -1)
+		pattern = strings.Replace(tempPattern, "{1}", cacheFormatMap[locale].Messages.TimeFormat.Medium, -1)
 	case constants.SHORT:
-		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Short, "{0}",cacheFormatMap[locale].Messages.DateFormat.Short,-1)
-		pattern = strings.Replace(tempPattern, "{1}",cacheFormatMap[locale].Messages.TimeFormat.Short,-1)
+		tempPattern := strings.Replace(cacheFormatMap[locale].Messages.DateTimeFormat.Short, "{0}", cacheFormatMap[locale].Messages.DateFormat.Short, -1)
+		pattern = strings.Replace(tempPattern, "{1}", cacheFormatMap[locale].Messages.TimeFormat.Short, -1)
 	default:
 		return "", errors.New("unknown datetime format" + pattern[0:1])
 	}
@@ -125,18 +124,18 @@ func FormatDateTime(format int, datetime time.Time, locale string) (string, erro
 		return "", err
 	}
 
-	return formatDateTime(datetime, parsed,locale)
+	return formatDateTime(datetime, parsed, locale)
 }
 
 // formatDateTime takes a time.Time and a sequence of parsed pattern components
 // and returns an internationalized string representation.
-func formatDateTime(datetime time.Time, pattern []*datetimePatternComponent,locale string) (string, error) {
+func formatDateTime(datetime time.Time, pattern []*datetimePatternComponent, locale string) (string, error) {
 	formatted := ""
 	for _, component := range pattern {
 		if component.componentType == datetimePatternComponentLiteral {
 			formatted += component.pattern
 		} else {
-			f, err := formatDateTimeComponent(datetime, component.pattern,locale)
+			f, err := formatDateTimeComponent(datetime, component.pattern, locale)
 			if err != nil {
 				return "", err
 			}
@@ -149,7 +148,7 @@ func formatDateTime(datetime time.Time, pattern []*datetimePatternComponent,loca
 
 // formatDateTimeComponent renders a single component of a datetime format
 // pattern.
-func formatDateTimeComponent(datetime time.Time, pattern string,locale string) (string, error) {
+func formatDateTimeComponent(datetime time.Time, pattern string, locale string) (string, error) {
 
 	switch pattern[0:1] {
 	case string(datetimeFormatUnitEra):
@@ -158,9 +157,9 @@ func formatDateTimeComponent(datetime time.Time, pattern string,locale string) (
 	case string(datetimeFormatUnitYear):
 		return formatDateTimeComponentYear(datetime, len(pattern))
 	case string(datetimeFormatUnitMonth):
-		return formatDateTimeComponentMonth(datetime, len(pattern),locale)
+		return formatDateTimeComponentMonth(datetime, len(pattern), locale)
 	case string(datetimeFormatUnitDayOfWeek):
-		return formatDateTimeComponentDayOfWeek(datetime, len(pattern),locale)
+		return formatDateTimeComponentDayOfWeek(datetime, len(pattern), locale)
 	case string(datetimeFormatUnitDay):
 		return formatDateTimeComponentDay(datetime, len(pattern))
 	case string(datetimeFormatUnitHour12):
@@ -172,12 +171,12 @@ func formatDateTimeComponent(datetime time.Time, pattern string,locale string) (
 	case string(datetimeFormatUnitSecond):
 		return formatDateTimeComponentSecond(datetime, len(pattern))
 	case string(datetimeFormatUnitPeriod):
-		return formatDateTimeComponentPeriod(datetime, len(pattern),locale)
+		return formatDateTimeComponentPeriod(datetime, len(pattern), locale)
 	case string(datetimeForamtUnitQuarter):
 		//TODO
 		fallthrough
 	case string(datetimeFormatUnitTimeZone1):
-		return formatDateTimeComponentLocationZone(datetime,len(pattern))
+		return formatDateTimeComponentLocationZone(datetime, len(pattern))
 	case string(datetimeFormatUnitTimeZone2):
 		//TODO
 	}
@@ -185,11 +184,11 @@ func formatDateTimeComponent(datetime time.Time, pattern string,locale string) (
 	return "", errors.New("unknown datetime format unit: " + pattern[0:1])
 }
 
-func isFormatLiteral(char string) bool{
-	for _,value := range dateUnits{
-		if char == value{
+func isFormatLiteral(char string) bool {
+	for _, value := range dateUnits {
+		if char == value {
 			return false
-	}
+		}
 	}
 
 	return true
@@ -276,7 +275,7 @@ func formatDateTimeComponentYear(datetime time.Time, length int) (string, error)
 }
 
 // formatDateTimeComponentMonth renders a month component.
-func formatDateTimeComponentMonth(datetime time.Time, length int,locale string) (string, error) {
+func formatDateTimeComponentMonth(datetime time.Time, length int, locale string) (string, error) {
 
 	month := int(datetime.Month())
 
@@ -286,29 +285,29 @@ func formatDateTimeComponentMonth(datetime time.Time, length int,locale string) 
 	case datetimeFormatLength2Plus:
 		return formatDateTimeComponentMonth2Plus(month), nil
 	case datetimeFormatLengthAbbreviated:
-		return formatDateTimeComponentMonthAbbreviated(month,locale), nil
+		return formatDateTimeComponentMonthAbbreviated(month, locale), nil
 	case datetimeFormatLengthWide:
-		return formatDateTimeComponentMonthWide(month,locale), nil
+		return formatDateTimeComponentMonthWide(month, locale), nil
 	case datetimeFormatLengthNarrow:
-		return formatDateTimeComponentMonthNarrow(month,locale), nil
+		return formatDateTimeComponentMonthNarrow(month, locale), nil
 	}
 
 	return "", errors.New(fmt.Sprintf("unsupported month length: %d", length))
 }
 
 // formatDateTimeComponentDayOfWeek renders a day-of-week component.
-func formatDateTimeComponentDayOfWeek(datetime time.Time, length int,locale string) (string, error) {
+func formatDateTimeComponentDayOfWeek(datetime time.Time, length int, locale string) (string, error) {
 	switch length {
 	case datetimeFormatLength1Plus:
-		return formatDateTimeComponentDayOfWeekWide(datetime.Weekday(),locale), nil
+		return formatDateTimeComponentDayOfWeekWide(datetime.Weekday(), locale), nil
 	case datetimeFormatLength2Plus:
-		return formatDateTimeComponentDayOfWeekShort(datetime.Weekday(),locale), nil
+		return formatDateTimeComponentDayOfWeekShort(datetime.Weekday(), locale), nil
 	case datetimeFormatLengthAbbreviated:
-		return formatDateTimeComponentDayOfWeekAbbreviated(datetime.Weekday(),locale), nil
+		return formatDateTimeComponentDayOfWeekAbbreviated(datetime.Weekday(), locale), nil
 	case datetimeFormatLengthWide:
-		return formatDateTimeComponentDayOfWeekWide(datetime.Weekday(),locale), nil
+		return formatDateTimeComponentDayOfWeekWide(datetime.Weekday(), locale), nil
 	case datetimeFormatLengthNarrow:
-		return formatDateTimeComponentDayOfWeekNarrow(datetime.Weekday(),locale), nil
+		return formatDateTimeComponentDayOfWeekNarrow(datetime.Weekday(), locale), nil
 	}
 
 	return "", errors.New(fmt.Sprintf("unsupported year day-of-week: %d", length))
@@ -405,18 +404,18 @@ func formatDateTimeComponentSecond(datetime time.Time, length int) (string, erro
 }
 
 // formatDateTimeComponentPeriod renders a period component (AM/PM).
-func formatDateTimeComponentPeriod(datetime time.Time, length int,locale string) (string, error) {
+func formatDateTimeComponentPeriod(datetime time.Time, length int, locale string) (string, error) {
 	hour := datetime.Hour()
 
 	switch length {
 	case datetimeFormatLength1Plus:
-		return formatDateTimeComponentPeriodWide(hour,locale), nil
+		return formatDateTimeComponentPeriodWide(hour, locale), nil
 	case datetimeFormatLengthAbbreviated:
-		return formatDateTimeComponentPeriodAbbreviated(hour,locale), nil
+		return formatDateTimeComponentPeriodAbbreviated(hour, locale), nil
 	case datetimeFormatLengthWide:
-		return formatDateTimeComponentPeriodWide(hour,locale), nil
+		return formatDateTimeComponentPeriodWide(hour, locale), nil
 	case datetimeFormatLengthNarrow:
-		return formatDateTimeComponentPeriodNarrow(hour,locale), nil
+		return formatDateTimeComponentPeriodNarrow(hour, locale), nil
 	}
 
 	return "", errors.New(fmt.Sprintf("unsupported day-period: %d", length))
@@ -456,7 +455,7 @@ func formatDateTimeComponentMonth2Plus(month int) string {
 
 // formatDateTimeComponentMonthAbbreviated renders an abbreviated text month
 // component.
-func formatDateTimeComponentMonthAbbreviated(month int,locale string) string {
+func formatDateTimeComponentMonthAbbreviated(month int, locale string) string {
 	switch month {
 	case 1:
 		return cacheFormatMap[locale].Messages.MonthsFormat.Abbreviated[0]
@@ -488,7 +487,7 @@ func formatDateTimeComponentMonthAbbreviated(month int,locale string) string {
 }
 
 // formatDateTimeComponentMonthWide renders a full text month component.
-func formatDateTimeComponentMonthWide(month int,locale string) string {
+func formatDateTimeComponentMonthWide(month int, locale string) string {
 	switch month {
 	case 1:
 		return cacheFormatMap[locale].Messages.MonthsFormat.Wide[0]
@@ -521,7 +520,7 @@ func formatDateTimeComponentMonthWide(month int,locale string) string {
 
 // formatDateTimeComponentMonthNarrow renders a super-short month compontent -
 // not guaranteed to be unique for different months.
-func formatDateTimeComponentMonthNarrow(month int,locale string) string {
+func formatDateTimeComponentMonthNarrow(month int, locale string) string {
 	switch month {
 	case 1:
 		return cacheFormatMap[locale].Messages.MonthsFormat.Narrow[0]
@@ -554,7 +553,7 @@ func formatDateTimeComponentMonthNarrow(month int,locale string) string {
 
 // formatDateTimeComponentDayOfWeekWide renders a full text day-of-week
 // component.
-func formatDateTimeComponentDayOfWeekWide(dayOfWeek time.Weekday,locale string) string {
+func formatDateTimeComponentDayOfWeekWide(dayOfWeek time.Weekday, locale string) string {
 	switch dayOfWeek {
 	case time.Sunday:
 		return cacheFormatMap[locale].Messages.DaysFormat.Wide[0]
@@ -577,7 +576,7 @@ func formatDateTimeComponentDayOfWeekWide(dayOfWeek time.Weekday,locale string) 
 
 // formatDateTimeComponentDayOfWeekNarrow renders a super-short day-of-week
 // compontent - not guaranteed to be unique for different days.
-func formatDateTimeComponentDayOfWeekNarrow(dayOfWeek time.Weekday,locale string) string {
+func formatDateTimeComponentDayOfWeekNarrow(dayOfWeek time.Weekday, locale string) string {
 	switch dayOfWeek {
 	case time.Sunday:
 		return cacheFormatMap[locale].Messages.DaysFormat.Narrow[0]
@@ -600,7 +599,7 @@ func formatDateTimeComponentDayOfWeekNarrow(dayOfWeek time.Weekday,locale string
 
 // formatDateTimeComponentDayOfWeekAbbreviated renders an abbreviated text
 // day-of-week component.
-func formatDateTimeComponentDayOfWeekAbbreviated(dayOfWeek time.Weekday,locale string) string {
+func formatDateTimeComponentDayOfWeekAbbreviated(dayOfWeek time.Weekday, locale string) string {
 	switch dayOfWeek {
 	case time.Sunday:
 		return cacheFormatMap[locale].Messages.DaysFormat.Abbreviated.Sun
@@ -623,7 +622,7 @@ func formatDateTimeComponentDayOfWeekAbbreviated(dayOfWeek time.Weekday,locale s
 
 // formatDateTimeComponentDayOfWeekAbbreviated renders a
 // shorter-then-abbreviated but still unique text day-of-week component.
-func formatDateTimeComponentDayOfWeekShort(dayOfWeek time.Weekday,locale string) string {
+func formatDateTimeComponentDayOfWeekShort(dayOfWeek time.Weekday, locale string) string {
 	switch dayOfWeek {
 	case time.Sunday:
 		return cacheFormatMap[locale].Messages.DaysFormat.Short[0]
@@ -646,7 +645,7 @@ func formatDateTimeComponentDayOfWeekShort(dayOfWeek time.Weekday,locale string)
 
 // formatDateTimeComponentPeriodAbbreviated renders an abbreviated period
 // component.
-func formatDateTimeComponentPeriodAbbreviated(hour int,locale string) string {
+func formatDateTimeComponentPeriodAbbreviated(hour int, locale string) string {
 	if hour < 12 {
 		return cacheFormatMap[locale].Messages.DayPeriodsFormat.Abbreviated[0]
 	}
@@ -655,7 +654,7 @@ func formatDateTimeComponentPeriodAbbreviated(hour int,locale string) string {
 }
 
 // formatDateTimeComponentPeriodWide renders a full period component.
-func formatDateTimeComponentPeriodWide(hour int,locale string) string {
+func formatDateTimeComponentPeriodWide(hour int, locale string) string {
 	if hour < 12 {
 		return cacheFormatMap[locale].Messages.DayPeriodsFormat.Wide[0]
 	}
@@ -664,7 +663,7 @@ func formatDateTimeComponentPeriodWide(hour int,locale string) string {
 }
 
 // formatDateTimeComponentPeriodNarrow renders a super-short period component.
-func formatDateTimeComponentPeriodNarrow(hour int,locale string) string {
+func formatDateTimeComponentPeriodNarrow(hour int, locale string) string {
 	if hour < 12 {
 		return cacheFormatMap[locale].Messages.DayPeriodsFormat.Narrow[0]
 	}
@@ -673,9 +672,9 @@ func formatDateTimeComponentPeriodNarrow(hour int,locale string) string {
 }
 
 // formatDateTimeComponentLocationZone renders different zone formats
-func formatDateTimeComponentLocationZone(datetime time.Time, length int) (string, error){
+func formatDateTimeComponentLocationZone(datetime time.Time, length int) (string, error) {
 	var b []byte
-	name,offset := datetime.Zone()
+	name, offset := datetime.Zone()
 
 	zone := offset / 60 // convert to minutes
 	absoffset := offset
@@ -693,14 +692,14 @@ func formatDateTimeComponentLocationZone(datetime time.Time, length int) (string
 		b = append(b, ':')
 		b = appendInt(b, zone%60, 2)
 		b = appendInt(b, absoffset%60, 2)
-		return string(b),nil
+		return string(b), nil
 	case datetimeFormatLengthWide:
 		b = append(b, ':')
 		b = appendInt(b, zone%60, 2)
-		return name + string(b),nil
+		return name + string(b), nil
 	}
 
-	return "",errors.New(fmt.Sprintf("unsupported zone-period: %d", length))
+	return "", errors.New(fmt.Sprintf("unsupported zone-period: %d", length))
 }
 
 // lastSequenceIndex looks at the first character in a string and returns the
@@ -760,7 +759,3 @@ func appendInt(b []byte, x int, width int) []byte {
 
 	return append(b, buf[i:]...)
 }
-
-
-
-
