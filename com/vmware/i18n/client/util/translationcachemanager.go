@@ -57,7 +57,7 @@ func init() {
 //loading cache information
 func LoadCached() {
 
-	now := time.Now();
+	now := time.Now()
 
 	//default separator is ','
 	locales := strings.Split(conf.GetVipConfigInstance().Locales, ",")
@@ -129,7 +129,7 @@ func (manager *translationCacheManager) AddCacheByComponent(dto CacheDTO, object
 	defer mux.Unlock()
 
 	//compare to the maximum number of translations in a component
-	if len(translationCache) < manager.maxNumOfTranslationInComponent {
+	if len(translationCache) >= manager.maxNumOfTranslationInComponent {
 		return false
 	} else {
 		//update cache

@@ -3,9 +3,9 @@ package dao
 import (
 	"vipgoclient/com/vmware/i18n/client/conf"
 	"vipgoclient/com/vmware/i18n/client/bean/i18n"
-	"fmt"
 	"net/http"
 	"encoding/json"
+	"fmt"
 )
 
 var enableCache = conf.GetVipConfigInstance().EnableCache
@@ -59,7 +59,7 @@ func GetTranslationByComponent(local, component string) *bean.QueryTranslationBy
 		fmt.Println(url + error.Error())
 	}
 
-	//fmt.Println(respData.Data.Messages)
+	fmt.Println(respData.Data.Messages)
 
 	return respData
 }
@@ -86,6 +86,8 @@ func GetTranslationByKey(key, component, local string) *bean.QueryTranslationByK
 		fmt.Println(url + error.Error())
 	}
 
+	fmt.Println(respData)
+
 	return respData
 }
 
@@ -106,7 +108,9 @@ func GetFormattingPatternsByLocal(local string) *bean.QueryFormattingPatternByLo
 		fmt.Println(url + error.Error())
 	}
 
-	//fmt.Println(respData.Data)
+	fmt.Println(respData.Data)
 
 	return respData
 }
+
+
