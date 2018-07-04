@@ -16,19 +16,14 @@ var (
 	initialLocation = "Asia/Shanghai"
 	cstSh, _ = time.LoadLocation(initialLocation)
 	dateTime,_ = time.ParseInLocation(dateTimeString,dateTimeString,cstSh)
-	dateResult = map[int]map[string]string{
-		constants.SHORTDATE : {"zh_CN":"2006/1/2","de":"02.01.06","es":"2/1/06","fr":"02/01/2006","ja":"2006/01/02","ko":"06. 1. 2.","zh_TW":"2006/1/2",},
-		constants.MEDIUMDATE : {"zh_CN":"2006年1月2日","de":"02.01.2006","es":"2 ene. 2006","fr":"2 janv. 2006","ja":"2006/01/02","ko":"2006. 1. 2.","zh_TW":"2006年1月2日",},
-		constants.FULLDATE : {"zh_CN":"2006年1月2日星期一","de":"Montag, 2. Januar 2006","es":"lunes, 2 '2e' enero '2e' 2006","fr":"lundi 2 janvier 2006","ja":"2006年1月2日月曜日","ko":"2006년 1월 2일 월요일","zh_TW":"2006年1月2日 星期一",},
-		constants.LONGDATE : {"zh_CN":"2006年1月2日","de":"2. Januar 2006","es":"2 '2e' enero '2e' 2006","fr":"2 janvier 2006","ja":"2006年1月2日","ko":"2006년 1월 2일","zh_TW":"2006年1月2日",},
-		constants.SHORTTIME : {"zh_CN":"下午3:04","de":"15:04","es":"15:04","fr":"15:04","ja":"15:04","ko":"오후 3:04","zh_TW":"下午3:04",},
-		constants.MEDIUMTIME : {"zh_CN":"下午3:04:05","de":"15:04:05","es":"15:04:05","fr":"15:04:05","ja":"15:04:05","ko":"오후 3:04:05","zh_TW":"下午3:04:05",},
-		constants.LONGTIME : {"zh_CN":"+08:0000 下午3:04:05","de":"15:04:05 +08:0000","es":"15:04:05 +08:0000","fr":"15:04:05 +08:0000","ja":"15:04:05 +08:0000","ko":"오후 3시 4분 5초 +08:0000","zh_TW":"下午3:04:05 [+08:0000]",},
-		constants.FULLTIME : {"zh_CN":"CST+08:00 下午3:04:05","de":"15:04:05 CST+08:00","es":"15:04:05 (CST+08:00)","fr":"15:04:05 CST+08:00","ja":"15時04分05秒 CST+08:00","ko":"오후 3시 4분 5초 CST+08:00","zh_TW":"下午3:04:05 [CST+08:00]",},
-		constants.SHORT : {"zh_CN":"下午3:04 2006/1/2","de":"15:04, 02.01.06","es":"15:04 2/1/06","fr":"15:04 02/01/2006","ja":"15:04 2006/01/02","ko":"오후 3:04 06. 1. 2.","zh_TW":"下午3:04 2006/1/2",},
-		constants.MEDIUM : {"zh_CN":"下午3:04:05 2006年1月2日","de":"15:04:05, 02.01.2006","es":"15:04:05 2 ene. 2006","fr":"15:04:05 'à' 2 janv. 2006","ja":"15:04:05 2006/01/02","ko":"오후 3:04:05 2006. 1. 2.","zh_TW":"下午3:04:05 2006年1月2日",},
-		constants.LONG : {"zh_CN":"+08:0000 下午3:04:05 2006年1月2日","de":"15:04:05 +08:0000 'u4' 2. Januar 2006","es":"15:04:05 +08:0000, 2 '2e' enero '2e' 2006","fr":"15:04:05 +08:0000 'à' 2 janvier 2006","ja":"15:04:05 +08:0000 2006年1月2日","ko":"오후 3시 4분 5초 +08:0000 2006년 1월 2일","zh_TW":"下午3:04:05 [+08:0000] 2006年1月2日",},
-		constants.FULL : {"zh_CN":"CST+08:00 下午3:04:05 2006年1月2日星期一","de":"15:04:05 CST+08:00 'u4' Montag, 2. Januar 2006","es":"15:04:05 (CST+08:00), lunes, 2 '2e' enero '2e' 2006","fr":"15:04:05 CST+08:00 'à' lundi 2 janvier 2006","ja":"15時04分05秒 CST+08:00 2006年1月2日月曜日","ko":"오후 3시 4분 5초 CST+08:00 2006년 1월 2일 월요일","zh_TW":"下午3:04:05 [CST+08:00] 2006年1月2日 星期一",},
+	dateResult = map[string]map[int]string{
+		"zh_CN" : {constants.SHORTDATE:"2006/1/2",constants.MEDIUMDATE:"2006年1月2日",constants.FULLDATE:"2006年1月2日星期一",constants.LONGDATE:"2006年1月2日",constants.SHORTTIME:"下午3:04",constants.MEDIUMTIME:"下午3:04:05",constants.LONGTIME:"+08:0000 下午3:04:05",constants.FULLTIME:"CST+08:00 下午3:04:05",constants.SHORT:"下午3:04 2006/1/2", constants.MEDIUM:"下午3:04:05 2006年1月2日",constants.LONG:"+08:0000 下午3:04:05 2006年1月2日",constants.FULL:"CST+08:00 下午3:04:05 2006年1月2日星期一"},
+		"de" : {constants.SHORTDATE:"02.01.06",constants.MEDIUMDATE:"02.01.2006",constants.FULLDATE:"Montag, 2. Januar 2006",constants.LONGDATE:"2. Januar 2006",constants.SHORTTIME:"15:04",constants.MEDIUMTIME:"15:04:05",constants.LONGTIME:"15:04:05 +08:0000",constants.FULLTIME:"15:04:05 CST+08:00",constants.SHORT:"15:04, 02.01.06", constants.MEDIUM:"15:04:05, 02.01.2006",constants.LONG:"15:04:05 +08:0000 'u4' 2. Januar 2006",constants.FULL:"15:04:05 CST+08:00 'u4' Montag, 2. Januar 2006"},
+		"es" : {constants.SHORTDATE:"2/1/06",constants.MEDIUMDATE:"2 ene. 2006",constants.FULLDATE:"lunes, 2 '2e' enero '2e' 2006",constants.LONGDATE:"2 '2e' enero '2e' 2006",constants.SHORTTIME:"15:04",constants.MEDIUMTIME:"15:04:05",constants.LONGTIME:"15:04:05 +08:0000",constants.FULLTIME:"15:04:05 (CST+08:00)",constants.SHORT:"15:04 2/1/06", constants.MEDIUM:"15:04:05 2 ene. 2006",constants.LONG:"15:04:05 +08:0000, 2 '2e' enero '2e' 2006",constants.FULL:"15:04:05 (CST+08:00), lunes, 2 '2e' enero '2e' 2006"},
+		"fr" : {constants.SHORTDATE:"02/01/2006",constants.MEDIUMDATE:"2 janv. 2006",constants.FULLDATE:"lundi 2 janvier 2006",constants.LONGDATE:"2 janvier 2006",constants.SHORTTIME:"15:04",constants.MEDIUMTIME:"15:04:05",constants.LONGTIME:"15:04:05 +08:0000",constants.FULLTIME:"15:04:05 CST+08:00",constants.SHORT:"15:04 02/01/2006", constants.MEDIUM:"15:04:05 'à' 2 janv. 2006",constants.LONG:"15:04:05 +08:0000 'à' 2 janvier 2006",constants.FULL:"15:04:05 CST+08:00 'à' lundi 2 janvier 2006"},
+		"ja" : {constants.SHORTDATE:"2006/01/02",constants.MEDIUMDATE:"2006/01/02",constants.FULLDATE:"2006年1月2日月曜日",constants.LONGDATE:"2006年1月2日",constants.SHORTTIME:"15:04",constants.MEDIUMTIME:"15:04:05",constants.LONGTIME:"15:04:05 +08:0000",constants.FULLTIME:"15時04分05秒 CST+08:00",constants.SHORT:"15:04 2006/01/02", constants.MEDIUM:"15:04:05 2006/01/02",constants.LONG:"15:04:05 +08:0000 2006年1月2日",constants.FULL:"15時04分05秒 CST+08:00 2006年1月2日月曜日"},
+		"ko" : {constants.SHORTDATE:"06. 1. 2.",constants.MEDIUMDATE:"2006. 1. 2.",constants.FULLDATE:"2006년 1월 2일 월요일",constants.LONGDATE:"2006년 1월 2일",constants.SHORTTIME:"오후 3:04",constants.MEDIUMTIME:"오후 3:04:05",constants.LONGTIME:"오후 3시 4분 5초 +08:0000",constants.FULLTIME:"오후 3시 4분 5초 CST+08:00",constants.SHORT:"오후 3:04 06. 1. 2.", constants.MEDIUM:"오후 3:04:05 2006. 1. 2.",constants.LONG:"오후 3시 4분 5초 +08:0000 2006년 1월 2일",constants.FULL:"오후 3시 4분 5초 CST+08:00 2006년 1월 2일 월요일"},
+		"zh_TW" : {constants.SHORTDATE:"2006/1/2",constants.MEDIUMDATE:"2006年1月2日",constants.FULLDATE:"2006年1月2日 星期一",constants.LONGDATE:"2006年1月2日",constants.SHORTTIME:"下午3:04",constants.MEDIUMTIME:"下午3:04:05",constants.LONGTIME:"下午3:04:05 [+08:0000]",constants.FULLTIME:"下午3:04:05 [CST+08:00]",constants.SHORT:"下午3:04 2006/1/2", constants.MEDIUM:"下午3:04:05 2006年1月2日",constants.LONG:"下午3:04:05 [+08:0000] 2006年1月2日",constants.FULL:"下午3:04:05 [CST+08:00] 2006年1月2日 星期一"},
 	}
 	exceptedNumberValue = map[string]string{
 		"zh_CN":"-1,234.568",
@@ -138,7 +133,7 @@ func TestGetDate(t *testing.T) {
 				t.Log("GetDate failed!!!")
 			}
 
-			exceptedValue := dateResult[number][local]
+			exceptedValue := dateResult[local][number]
 			if exceptedValue != result {
 				t.Fatalf("The result of the getDate is not the excepted value in local:\"%s\" and pattern:\"%v\"!!!",local,number)
 			}
@@ -159,7 +154,7 @@ func TestGetFullDateTime(t *testing.T) {
 				t.Log("GetFullDateTime failed!!!")
 			}
 
-			exceptedValue := dateResult[constants.FULL][local]
+			exceptedValue := dateResult[local][constants.FULL]
 			if exceptedValue != result {
 				t.Fatalf("The result of the getFullDateTime is not the excepted value in local:\"%s\"!!!",local)
 			}
@@ -180,7 +175,7 @@ func TestGetFullDate(t *testing.T) {
 				t.Log("GetFullDateTime failed!!!")
 			}
 
-			exceptedValue := dateResult[constants.FULLDATE][local]
+			exceptedValue := dateResult[local][constants.FULLDATE]
 			if exceptedValue != result {
 				t.Fatalf("The result of the getFullDate is not the excepted value in local:\"%s\"!!!",local)
 			}
