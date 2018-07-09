@@ -23,6 +23,20 @@ var (
 		constants.LONG,
 		constants.FULL,
 	}
+	dateType = map[int]string{
+		constants.SHORTDATE:"shortDate",
+		constants.MEDIUMDATE:"mediumDate",
+		constants.FULLDATE:"fullDate",
+		constants.LONGDATE:"longDate",
+		constants.SHORTTIME:"shortTime",
+		constants.MEDIUMTIME:"mediumTime",
+		constants.LONGTIME:"longTime",
+		constants.FULLTIME:"fullTime",
+		constants.SHORT:"short",
+		constants.MEDIUM:"medium",
+		constants.LONG:"long",
+		constants.FULL:"full",
+	}
 	dateResult = map[string]map[int]string{
 		"zh_CN": {constants.SHORTDATE: "2006/1/2", constants.MEDIUMDATE: "2006年1月2日", constants.FULLDATE: "2006年1月2日星期一", constants.LONGDATE: "2006年1月2日", constants.SHORTTIME: "下午3:04", constants.MEDIUMTIME: "下午3:04:05", constants.LONGTIME: "+08:0000 下午3:04:05", constants.FULLTIME: "CST+08:00 下午3:04:05", constants.SHORT: "下午3:04 2006/1/2", constants.MEDIUM: "下午3:04:05 2006年1月2日", constants.LONG: "+08:0000 下午3:04:05 2006年1月2日", constants.FULL: "CST+08:00 下午3:04:05 2006年1月2日星期一"},
 		"de":    {constants.SHORTDATE: "02.01.06", constants.MEDIUMDATE: "02.01.2006", constants.FULLDATE: "Montag, 2. Januar 2006", constants.LONGDATE: "2. Januar 2006", constants.SHORTTIME: "15:04", constants.MEDIUMTIME: "15:04:05", constants.LONGTIME: "15:04:05 +08:0000", constants.FULLTIME: "15:04:05 CST+08:00", constants.SHORT: "15:04, 02.01.06", constants.MEDIUM: "15:04:05, 02.01.2006", constants.LONG: "15:04:05 +08:0000 'u4' 2. Januar 2006", constants.FULL: "15:04:05 CST+08:00 'u4' Montag, 2. Januar 2006"},
@@ -37,21 +51,18 @@ var (
 )
 
 func TestFormatDateTime(t *testing.T) {
-	t.Log("Get the need to test DateTimeFormat")
-	{
-		for _, local := range Locales {
-			for _, dateTimeConstant := range dateTimeConstants {
-				dFull, err := FormatDateTime(dateTimeConstant, dateTime, local)
-				if err != nil {
-					t.Fatal("TestFormatDateTime failed!!!")
-				}
+	for _, local := range Locales {
+		for _, dateTimeConstant := range dateTimeConstants {
+			t.Logf("Request parameter:local:\"%v\",pattern:\"%v\"", local,dateType[dateTimeConstant])
+			dFull, err := FormatDateTime(dateTimeConstant, dateTime, local)
+			t.Logf("\"%v\" convert to \"%v\"",dateTime,dFull)
+			if err != nil {
+				t.Fatal("TestFormatDateTime failed!!!")
+			}
 
-				exceptedValue := dateResult[local][dateTimeConstant]
-				if exceptedValue != dFull {
-					t.Fatalf("The result of the getNumber is not the excepted value in local:\"%s\" and pattern:\"%v\"!!!", local, dateTimeConstant)
-				}
-
-				t.Logf("local:\"%s\";pattern:\"%v\";oldTime:\"%s\" convert to newTime:\"%s\"", local, dateTimeConstant, dateTime, dFull)
+			exceptedValue := dateResult[local][dateTimeConstant]
+			if exceptedValue != dFull {
+				t.Fatalf("The result of the getNumber is not the excepted value in local:\"%s\" and pattern:\"%v\"!!!", local, dateTimeConstant)
 			}
 		}
 	}
