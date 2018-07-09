@@ -1,31 +1,28 @@
 package main
 
 import (
-	"fmt"
 	"context"
-	"time"
-	"reflect"
+	"fmt"
 	"strconv"
+	"time"
 )
 
-type ReflectionTest struct{
-	name string `test1:"1111";test2:"2222"`
-}
+//type ReflectionTest struct{
+//	name string `test1:"1111";test2:"2222"`
+//}
 
-func main(){
-
+func main() {
 
 	str := "\"123\""
 
 	fmt.Println(str[1])
 
 	fmt.Println(strconv.Unquote(str))
-	testReflect := ReflectionTest{"atest"}
-
-	s := reflect.TypeOf(testReflect)
-
-	fmt.Println(s.Field(0).Tag.Get("test1"))
-
+	//testReflect := ReflectionTest{"atest"}
+	//
+	//s := reflect.TypeOf(testReflect)
+	//
+	//fmt.Println(s.Field(0).Tag.Get("test1"))
 
 	//respData := bean.QueryTranslationByCompRespData{
 	//	ProductName:"1111",
@@ -48,11 +45,11 @@ func main(){
 
 	//util.GetTranslationByComponent()
 
-	origin,wait := make(chan int),make(chan struct{})
+	origin, wait := make(chan int), make(chan struct{})
 
-	Processor(origin,wait)
+	Processor(origin, wait)
 
-	for num :=2;num < 10; num ++{
+	for num := 2; num < 10; num++ {
 		origin <- num
 	}
 
@@ -66,11 +63,11 @@ func main(){
 
 }
 
-func TestContext(){
-	ctx,cancel := context.WithCancel(context.Background())
+func TestContext() {
+	ctx, cancel := context.WithCancel(context.Background())
 
-	go func(ctx context.Context){
-		for{
+	go func(ctx context.Context) {
+		for {
 			select {
 			case <-ctx.Done():
 				fmt.Println("监控退出，停止了...")
@@ -83,26 +80,25 @@ func TestContext(){
 
 	}(ctx)
 
-
 	time.Sleep(10 * time.Second)
 	fmt.Println("通知监控停止")
 	cancel()
 
-	time.Sleep(5*time.Second)
+	time.Sleep(5 * time.Second)
 }
 
-func Processor(seq chan int,wait chan struct{}){
-	go func(){
-		prime,ok := <-seq
+func Processor(seq chan int, wait chan struct{}) {
+	go func() {
+		prime, ok := <-seq
 		if !ok {
 			close(wait)
 			return
 		}
 		fmt.Println(prime)
 		out := make(chan int)
-		Processor(out,wait)
-		for num := range seq{
-			if num %prime != 0{
+		Processor(out, wait)
+		for num := range seq {
+			if num%prime != 0 {
 				out <- num
 			}
 		}
@@ -113,22 +109,22 @@ func Processor(seq chan int,wait chan struct{}){
 			}
 		}()
 
-		panic("test")
 		close(out)
 
+		panic("test")
 
 	}()
 }
 
-func TestTimeout(){
-	ctx,cancel := context.WithTimeout(context.Background(),50*time.Microsecond)
+func TestTimeout() {
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Microsecond)
 
 	defer cancel()
 
 	select {
-		case <- time.After(1 * time.Second):
-			fmt.Println("overslept")
-		case <- ctx.Done():
-			fmt.Println(ctx.Err())
+	case <-time.After(1 * time.Second):
+		fmt.Println("overslept")
+	case <-ctx.Done():
+		fmt.Println(ctx.Err())
 	}
 }

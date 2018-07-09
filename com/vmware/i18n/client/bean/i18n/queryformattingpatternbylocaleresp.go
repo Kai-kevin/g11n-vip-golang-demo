@@ -1,8 +1,8 @@
 package bean
 
 type QueryFormattingPatternByLocaleRespEvent struct {
-	Response  Response                      `json:"response"`
-	Signature string                        `json:"signature"`
+	Response  Response                               `json:"response"`
+	Signature string                                 `json:"signature"`
 	Data      QueryFormattingPatternByLocaleRespData `json:"data"`
 }
 
@@ -13,7 +13,7 @@ type QueryFormattingPatternByLocaleRespData struct {
 	Component   string  `json:"component"`
 	Messages    Message `json:"messages"`
 	Locale      string  `json:"locale"`
-	Status      string  `json:status`
+	Status      string  `json:"status"`
 }
 
 type Message struct {
@@ -33,20 +33,20 @@ type Message struct {
 	NumberSymbols        NumberSymbols        `json:"NumberSymbols"`
 	NumberFormats        NumberFormats        `json:"NumberFormats"`
 	CurrencySymbol       string               `json:"currencySymbol"`
-	currencyName         string               `json:"CurrencyName"`
+	CurrencyName         string               `json:"CurrencyName"`
 	PluralRules          PluralRules          `json:"PluralRules"`
 }
 
 type DayPeriodsFormat struct {
 	Narrow      []string `json:"narrow"`
 	Abbreviated []string `json:"abbreviated"`
-	Wide        []string `json:wide`
+	Wide        []string `json:"wide"`
 }
 
 type DayPeriodsStandalone struct {
 	Narrow      []string `json:"narrow"`
 	Abbreviated []string `json:"abbreviated"`
-	Wide        []string `json:wide`
+	Wide        []string `json:"wide"`
 }
 
 type Abbreviated struct {
@@ -67,10 +67,10 @@ type DaysFormat struct {
 }
 
 type DaysStandalone struct {
-	Narrow      []string    `json:"narrow"`
+	Narrow      []string `json:"narrow"`
 	Abbreviated []string `json:"abbreviated"`
-	Wide        []string    `json:"wide"`
-	Short       []string    `json:"short"`
+	Wide        []string `json:"wide"`
+	Short       []string `json:"short"`
 }
 
 type DateFormat struct {
