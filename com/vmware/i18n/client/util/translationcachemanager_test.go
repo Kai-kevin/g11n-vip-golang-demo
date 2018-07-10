@@ -5,8 +5,14 @@ import (
 )
 
 var (
-	cacheDTO = CacheDTO{
+	removeCacheDTO = CacheDTO{
 		Locale:    Locales[0],
+		Component: Components[0],
+		ProductID: productID,
+		Version:   version,
+	}
+	addCacheDTO = CacheDTO{
+		Locale:    Locales[1],
 		Component: Components[0],
 		ProductID: productID,
 		Version:   version,
@@ -26,50 +32,50 @@ func TestLoadCached(t *testing.T) {
 
 func TestRemoveCacheByComponent(t *testing.T) {
 	t.Logf("The result before the removeCache is \"%v\"", cachedMap)
-	if !GetTranslationCacheManagerInstance().RemoveCacheByComponent(cacheDTO) {
+	if !GetTranslationCacheManagerInstance().RemoveCacheByComponent(removeCacheDTO) {
 		t.Fatal("Remove cache failed!!!")
-	} else if _, exist := cachedMap[cacheDTO]; exist {
+	} else if _, exist := cachedMap[removeCacheDTO]; exist {
 		t.Fatal("The result of the removeCacheByComponent is not the excepted!!!")
 	}
 	t.Logf("The result after the removeCache is \"%v\"", cachedMap)
 }
 
 func TestUpdateCacheByComponent(t *testing.T) {
-	t.Logf("The result before the updateCache is \"%s\"", cachedMap[cacheDTO])
-	if !GetTranslationCacheManagerInstance().UpdateCacheByComponent(cacheDTO, params) {
+	t.Logf("The result before the updateCache is \"%s\"", cachedMap[addCacheDTO])
+	if !GetTranslationCacheManagerInstance().UpdateCacheByComponent(addCacheDTO, params) {
 		t.Fatal("UpdateCacheByComponent failed!!!")
 	}
-	t.Logf("The result after the updateCache is \"%s\"", cachedMap[cacheDTO])
+	t.Logf("The result after the updateCache is \"%s\"", cachedMap[addCacheDTO])
 
 	for k, v := range params {
-		if cachedMap[cacheDTO][k] != v {
-			t.Fatalf("The result of the updateCacheByComponent is \"%v\"; Not the excepted value:\"%v\"", cachedMap[cacheDTO][k], v)
+		if cachedMap[addCacheDTO][k] != v {
+			t.Fatalf("The result of the updateCacheByComponent is \"%v\"; Not the excepted value:\"%v\"", cachedMap[addCacheDTO][k], v)
 		}
 	}
 }
 
 func TestAddCacheByComponent(t *testing.T) {
-	t.Logf("The result before the addCache is \"%s\"", cachedMap[cacheDTO])
+	t.Logf("The result before the addCache is \"%s\"", cachedMap[addCacheDTO])
 	GetTranslationCacheManagerInstance().maxNumOfComponentInCache = 30
-	if !GetTranslationCacheManagerInstance().AddCacheByComponent(cacheDTO, params) {
+	if !GetTranslationCacheManagerInstance().AddCacheByComponent(addCacheDTO, params) {
 		t.Fatal("AddCacheByComponent failed!!!")
 	}
-	t.Logf("The result after the addCache is \"%s\"", cachedMap[cacheDTO])
+	t.Logf("The result after the addCache is \"%s\"", cachedMap[addCacheDTO])
 
 	for k, v := range params {
-		if cachedMap[cacheDTO][k] != v {
-			t.Fatalf("The result of the addCacheByComponent is \"%v\"; Not the excepted value:\"%v\"", cachedMap[cacheDTO][k], v)
+		if cachedMap[addCacheDTO][k] != v {
+			t.Fatalf("The result of the addCacheByComponent is \"%v\"; Not the excepted value:\"%v\"", cachedMap[addCacheDTO][k], v)
 		}
 	}
 }
 
 func TestLookForTranslationlnCache(t *testing.T) {
-	value := GetTranslationCacheManagerInstance().LookForTranslationlnCache(Key, cacheDTO)
+	value := GetTranslationCacheManagerInstance().LookForTranslationlnCache(Key, addCacheDTO)
 	t.Logf("The result of the lookForTranslationlnCache is \"%v\"", value)
 	if value == "" {
 		t.Fatalf("cacheDTO do not contain \"%s\"!!!", Key)
-	} else if cachedMap[cacheDTO][Key] != value {
-		t.Fatalf("The result of the lookForTranslationlnCache is \"%v\"; Not the excepted value:\"%v\"", value, cachedMap[cacheDTO][Key])
+	} else if cachedMap[addCacheDTO][Key] != value {
+		t.Fatalf("The result of the lookForTranslationlnCache is \"%v\"; Not the excepted value:\"%v\"", value, cachedMap[addCacheDTO][Key])
 	}
 }
 
@@ -86,7 +92,7 @@ func BenchmarkRemoveCacheByComponent(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		GetTranslationCacheManagerInstance().RemoveCacheByComponent(cacheDTO)
+		GetTranslationCacheManagerInstance().RemoveCacheByComponent(removeCacheDTO)
 	}
 }
 
@@ -94,7 +100,7 @@ func BenchmarkUpdateCacheByComponent(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		GetTranslationCacheManagerInstance().UpdateCacheByComponent(cacheDTO, params)
+		GetTranslationCacheManagerInstance().UpdateCacheByComponent(removeCacheDTO, params)
 	}
 }
 
@@ -103,7 +109,7 @@ func BenchmarkAddCacheByComponent(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		GetTranslationCacheManagerInstance().maxNumOfComponentInCache = len(cachedMap) + 1
-		GetTranslationCacheManagerInstance().AddCacheByComponent(cacheDTO, params)
+		GetTranslationCacheManagerInstance().AddCacheByComponent(removeCacheDTO, params)
 	}
 }
 
@@ -111,6 +117,6 @@ func BenchmarkLookForTranslationlnCache(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		GetTranslationCacheManagerInstance().LookForTranslationlnCache(Key, cacheDTO)
+		GetTranslationCacheManagerInstance().LookForTranslationlnCache(Key, removeCacheDTO)
 	}
 }
